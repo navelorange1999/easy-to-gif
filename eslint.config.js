@@ -9,6 +9,9 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default [
 	pluginJs.configs.recommended,
 	{
+		ignores: ["dist/**/*"],
+	},
+	{
 		files: ["**/*.{ts,tsx}"],
 		languageOptions: {
 			parser: parserTs,

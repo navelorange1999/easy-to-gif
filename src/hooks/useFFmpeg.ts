@@ -247,7 +247,9 @@ export function useFFmpeg() {
 					progress: 95,
 				}));
 				const data = await ffmpeg.readFile("output.gif");
-				const blob = new Blob([data as Uint8Array], {
+				// 使用类型断言来处理 FFmpeg 的数据类型
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const blob = new Blob([data as any], {
 					type: "image/gif",
 				});
 
