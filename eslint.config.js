@@ -75,5 +75,17 @@ export default [
 			},
 		},
 	},
+	{
+		files: ["vite.config.ts", "vite.config.js"],
+		languageOptions: {
+			globals: {
+				process: "readonly",
+				__dirname: "readonly",
+				require: "readonly",
+				module: "readonly",
+				exports: "readonly",
+			},
+		},
+	},
 	eslintConfigPrettier,
 ];

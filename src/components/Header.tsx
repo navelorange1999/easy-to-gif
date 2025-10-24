@@ -36,7 +36,7 @@ export function Header() {
 					<nav className="flex items-center gap-2">
 						<Button variant="ghost" size="sm" asChild>
 							<a
-								href="https://github.com/your-username/easy-to-gif"
+								href={`https://github.com/${import.meta.env.VITE_GITHUB_OWNER}/easy-to-gif`}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="flex items-center gap-2"
