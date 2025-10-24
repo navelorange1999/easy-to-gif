@@ -1,9 +1,12 @@
-import {Shield, Zap, Smartphone} from "lucide-react";
+import {Shield, Zap, Smartphone, Heart} from "lucide-react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {Separator} from "@/components/ui/separator";
+import {useTranslation} from "react-i18next";
 
 export function Footer() {
+	const {t} = useTranslation();
+
 	return (
 		<footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-16">
 			<div className="container mx-auto px-4 py-8">
@@ -12,7 +15,7 @@ export function Footer() {
 					<Card>
 						<CardHeader className="pb-3">
 							<CardTitle className="text-base">
-								为什么选择我们？
+								{t("footer.whyChooseUs")}
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-3">
@@ -20,10 +23,10 @@ export function Footer() {
 								<Shield className="h-5 w-5 text-green-500 mt-0.5" />
 								<div>
 									<p className="font-medium text-sm">
-										隐私保护
+										{t("footer.privacy.title")}
 									</p>
 									<p className="text-xs text-muted-foreground">
-										所有处理都在本地完成，不会上传任何文件
+										{t("footer.privacy.description")}
 									</p>
 								</div>
 							</div>
@@ -31,10 +34,10 @@ export function Footer() {
 								<Zap className="h-5 w-5 text-yellow-500 mt-0.5" />
 								<div>
 									<p className="font-medium text-sm">
-										快速转换
+										{t("footer.fast.title")}
 									</p>
 									<p className="text-xs text-muted-foreground">
-										基于 FFmpeg WASM 技术，转换速度快
+										{t("footer.fast.description")}
 									</p>
 								</div>
 							</div>
@@ -42,10 +45,10 @@ export function Footer() {
 								<Smartphone className="h-5 w-5 text-blue-500 mt-0.5" />
 								<div>
 									<p className="font-medium text-sm">
-										响应式设计
+										{t("footer.responsive.title")}
 									</p>
 									<p className="text-xs text-muted-foreground">
-										支持桌面端和移动端使用
+										{t("footer.responsive.description")}
 									</p>
 								</div>
 							</div>
@@ -56,13 +59,13 @@ export function Footer() {
 					<Card>
 						<CardHeader className="pb-3">
 							<CardTitle className="text-base">
-								支持格式
+								{t("footer.supportedFormats")}
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="space-y-3">
 							<div>
 								<p className="font-medium text-sm mb-2">
-									输入格式
+									{t("footer.inputFormats")}
 								</p>
 								<div className="flex flex-wrap gap-1">
 									{[
@@ -86,10 +89,10 @@ export function Footer() {
 							</div>
 							<div>
 								<p className="font-medium text-sm mb-2">
-									输出格式
+									{t("footer.outputFormats")}
 								</p>
 								<Badge variant="outline" className="text-xs">
-									GIF（优化压缩）
+									{t("footer.gifOptimized")}
 								</Badge>
 							</div>
 						</CardContent>
@@ -99,7 +102,7 @@ export function Footer() {
 					<Card>
 						<CardHeader className="pb-3">
 							<CardTitle className="text-base">
-								使用说明
+								{t("footer.instructions")}
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
@@ -111,7 +114,7 @@ export function Footer() {
 									>
 										1
 									</Badge>
-									<span>上传您的视频文件</span>
+									<span>{t("footer.step1")}</span>
 								</div>
 								<div className="flex items-center gap-2">
 									<Badge
@@ -120,7 +123,7 @@ export function Footer() {
 									>
 										2
 									</Badge>
-									<span>调整转换参数</span>
+									<span>{t("footer.step2")}</span>
 								</div>
 								<div className="flex items-center gap-2">
 									<Badge
@@ -129,7 +132,7 @@ export function Footer() {
 									>
 										3
 									</Badge>
-									<span>点击开始转换</span>
+									<span>{t("footer.step3")}</span>
 								</div>
 								<div className="flex items-center gap-2">
 									<Badge
@@ -138,7 +141,7 @@ export function Footer() {
 									>
 										4
 									</Badge>
-									<span>下载生成的 GIF</span>
+									<span>{t("footer.step4")}</span>
 								</div>
 							</div>
 						</CardContent>
@@ -147,10 +150,13 @@ export function Footer() {
 
 				<Separator className="my-8" />
 				<div className="text-center text-sm text-muted-foreground">
-					<p>© 2024 Easy to GIF. 免费开源工具，基于 FFmpeg 构建。</p>
-					<p className="mt-1">
-						如有问题，请访问我们的 GitHub 仓库反馈。
-					</p>
+					<div className="flex items-center justify-center gap-1 mb-2">
+						<span>{t("header.madeWith")}</span>
+						<Heart className="h-4 w-4 text-destructive" />
+						<span>{t("header.forCreators")}</span>
+					</div>
+					<p>{t("footer.copyright")}</p>
+					<p className="mt-1">{t("footer.feedback")}</p>
 				</div>
 			</div>
 		</footer>

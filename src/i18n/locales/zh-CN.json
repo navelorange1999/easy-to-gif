@@ -1,0 +1,131 @@
+{
+  "app": {
+    "title": "Easy to GIF",
+    "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费"
+  },
+  "header": {
+    "github": "GitHub",
+    "madeWith": "Made with",
+    "forCreators": "for creators"
+  },
+  "main": {
+    "features": {
+      "privacy": {
+        "title": "隐私保护",
+        "description": "所有处理都在您的浏览器本地完成，我们不会保存任何文件"
+      },
+      "fast": {
+        "title": "快速转换",
+        "description": "基于 FFmpeg WASM 技术，转换速度快"
+      },
+      "responsive": {
+        "title": "响应式设计",
+        "description": "支持桌面端和移动端使用"
+      }
+    }
+  },
+  "initialization": {
+    "title": "正在初始化转换引擎",
+    "description": "首次使用需要下载 FFmpeg 核心文件（约30MB），请稍候...",
+    "failed": "初始化失败",
+    "retry": "刷新页面重试",
+    "checkCompatibility": "检查浏览器兼容性",
+    "success": "初始化完成！",
+    "successDescription": "现在可以上传视频文件开始转换"
+  },
+  "upload": {
+    "title": "选择视频文件",
+    "dragText": "拖拽视频文件到这里，或点击选择文件",
+    "supportedFormats": "支持 MP4、MOV、AVI、WebM 等格式，最大 200MB",
+    "selectFile": "选择文件",
+    "fileSizeError": "文件大小不能超过 200MB",
+    "formatError": "不支持的视频格式，请选择 MP4、MOV、AVI、WebM 等格式",
+    "readError": "无法读取视频文件，请选择有效的视频文件",
+    "metadataError": "无法读取视频信息"
+  },
+  "conversion": {
+    "title": "转换设置",
+    "qualityPreset": "质量预设",
+    "low": "低质量",
+    "medium": "中等",
+    "high": "高质量",
+    "useRecommended": "使用推荐配置",
+    "fps": "帧率",
+    "outputWidth": "输出宽度",
+    "heightAuto": "高度将按比例自动调整",
+    "estimatedInfo": "预估信息",
+    "outputResolution": "输出分辨率",
+    "estimatedSize": "预估文件大小",
+    "processingTime": "处理时长",
+    "seconds": "秒",
+    "startConversion": "开始转换",
+    "reset": "重置",
+    "success": "转换完成！",
+    "successDescription": "GIF 已生成，您可以预览和下载",
+    "failed": "转换失败",
+    "failedDescription": "请检查视频文件或重试"
+  },
+  "preview": {
+    "title": "转换结果",
+    "alt": "转换后的 GIF",
+    "clickToPreview": "点击预览",
+    "fileSize": "文件大小",
+    "outputSize": "输出尺寸",
+    "fps": "帧率",
+    "downloadGif": "下载 GIF",
+    "reconvert": "重新转换",
+    "previewTitle": "GIF 预览",
+    "closePreview": "关闭预览",
+    "tips": {
+      "title": "使用提示",
+      "items": [
+        "点击 GIF 缩略图或预览按钮可查看大图",
+        "右键点击 GIF 可保存到本地",
+        "如果 GIF 太大，可以调整转换参数重新生成"
+      ]
+    }
+  },
+  "progress": {
+    "preparing": "准备中...",
+    "downloading": "正在下载 FFmpeg 核心文件...",
+    "converting": "转换中...",
+    "completed": "转换完成！",
+    "initCompleted": "初始化完成！",
+    "failed": "转换失败",
+    "initFailed": "初始化失败",
+    "processing": "处理中...",
+    "downloadProgress": "下载进度",
+    "conversionProgress": "转换进度",
+    "downloadDescription": "首次使用需要下载 FFmpeg 核心文件（约30MB），请耐心等待...",
+    "conversionCompleted": "转换完成！现在可以预览和下载 GIF",
+    "initCompletedDescription": "初始化完成！现在可以上传视频文件开始转换",
+    "conversionError": "转换过程中出现错误，请检查视频文件或重试",
+    "initError": "初始化过程中出现错误，请刷新页面重试"
+  },
+  "footer": {
+    "whyChooseUs": "为什么选择我们？",
+    "privacy": {
+      "title": "隐私保护",
+      "description": "所有处理都在本地完成，不会上传任何文件"
+    },
+    "fast": {
+      "title": "快速转换",
+      "description": "基于 FFmpeg WASM 技术，转换速度快"
+    },
+    "responsive": {
+      "title": "响应式设计",
+      "description": "支持桌面端和移动端使用"
+    },
+    "supportedFormats": "支持格式",
+    "inputFormats": "输入格式",
+    "outputFormats": "输出格式",
+    "gifOptimized": "GIF（优化压缩）",
+    "instructions": "使用说明",
+    "step1": "上传您的视频文件",
+    "step2": "调整转换参数",
+    "step3": "点击开始转换",
+    "step4": "下载生成的 GIF",
+    "copyright": "© 2024 Easy to GIF. 免费开源工具，基于 FFmpeg 构建。",
+    "feedback": "如有问题，请访问我们的 GitHub 仓库反馈。"
+  }
+}

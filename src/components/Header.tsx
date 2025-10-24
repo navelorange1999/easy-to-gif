@@ -1,8 +1,11 @@
-import {Github, Heart} from "lucide-react";
+import {Github} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {Separator} from "@/components/ui/separator";
+import {LanguageSwitcher} from "@/components/LanguageSwitcher";
+import {useTranslation} from "react-i18next";
 
 export function Header() {
+	const {t} = useTranslation();
+
 	return (
 		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<div className="container flex h-16 max-w-screen-2xl items-center">
@@ -14,7 +17,7 @@ export function Header() {
 							</span>
 						</div>
 						<span className="text-xl font-bold text-foreground">
-							Easy to GIF
+							{t("app.title")}
 						</span>
 					</div>
 				</div>
@@ -28,7 +31,7 @@ export function Header() {
 								</span>
 							</div>
 							<span className="text-xl font-bold text-foreground md:hidden">
-								Easy to GIF
+								{t("app.title")}
 							</span>
 						</div>
 					</div>
@@ -42,15 +45,12 @@ export function Header() {
 								className="flex items-center gap-2"
 							>
 								<Github className="h-4 w-4" />
-								<span className="hidden sm:inline">GitHub</span>
+								<span className="hidden sm:inline">
+									{t("header.github")}
+								</span>
 							</a>
 						</Button>
-						<Separator orientation="vertical" className="h-6" />
-						<div className="hidden sm:flex items-center gap-1 text-sm text-muted-foreground">
-							<span>Made with</span>
-							<Heart className="h-4 w-4 text-destructive" />
-							<span>for creators</span>
-						</div>
+						<LanguageSwitcher />
 					</nav>
 				</div>
 			</div>

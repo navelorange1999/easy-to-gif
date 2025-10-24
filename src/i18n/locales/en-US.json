@@ -1,0 +1,131 @@
+{
+  "app": {
+    "title": "Easy to GIF",
+    "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free"
+  },
+  "header": {
+    "github": "GitHub",
+    "madeWith": "Made with",
+    "forCreators": "for creators"
+  },
+  "main": {
+    "features": {
+      "privacy": {
+        "title": "Privacy Protection",
+        "description": "All processing is done locally in your browser, we don't save any files"
+      },
+      "fast": {
+        "title": "Fast Conversion",
+        "description": "Based on FFmpeg WASM technology, fast conversion speed"
+      },
+      "responsive": {
+        "title": "Responsive Design",
+        "description": "Supports desktop and mobile use"
+      }
+    }
+  },
+  "initialization": {
+    "title": "Initializing conversion engine",
+    "description": "First use requires downloading FFmpeg core files (about 30MB), please wait...",
+    "failed": "Initialization failed",
+    "retry": "Refresh page to retry",
+    "checkCompatibility": "Check browser compatibility",
+    "success": "Initialization complete!",
+    "successDescription": "You can now upload video files to start conversion"
+  },
+  "upload": {
+    "title": "Select video file",
+    "dragText": "Drag video file here, or click to select file",
+    "supportedFormats": "Supports MP4, MOV, AVI, WebM and other formats, max 200MB",
+    "selectFile": "Select file",
+    "fileSizeError": "File size cannot exceed 200MB",
+    "formatError": "Unsupported video format, please select MP4, MOV, AVI, WebM and other formats",
+    "readError": "Unable to read video file, please select a valid video file",
+    "metadataError": "Unable to read video information"
+  },
+  "conversion": {
+    "title": "Conversion settings",
+    "qualityPreset": "Quality preset",
+    "low": "Low quality",
+    "medium": "Medium",
+    "high": "High quality",
+    "useRecommended": "Use recommended settings",
+    "fps": "Frame rate",
+    "outputWidth": "Output width",
+    "heightAuto": "Height will be automatically adjusted proportionally",
+    "estimatedInfo": "Estimated information",
+    "outputResolution": "Output resolution",
+    "estimatedSize": "Estimated file size",
+    "processingTime": "Processing time",
+    "seconds": "seconds",
+    "startConversion": "Start conversion",
+    "reset": "Reset",
+    "success": "Conversion complete!",
+    "successDescription": "GIF has been generated, you can preview and download",
+    "failed": "Conversion failed",
+    "failedDescription": "Please check video file or retry"
+  },
+  "preview": {
+    "title": "Conversion result",
+    "alt": "Converted GIF",
+    "clickToPreview": "Click to preview",
+    "fileSize": "File size",
+    "outputSize": "Output size",
+    "fps": "Frame rate",
+    "downloadGif": "Download GIF",
+    "reconvert": "Reconvert",
+    "previewTitle": "GIF preview",
+    "closePreview": "Close preview",
+    "tips": {
+      "title": "Usage tips",
+      "items": [
+        "Click GIF thumbnail or preview button to view large image",
+        "Right-click GIF to save to local",
+        "If GIF is too large, you can adjust conversion parameters to regenerate"
+      ]
+    }
+  },
+  "progress": {
+    "preparing": "Preparing...",
+    "downloading": "Downloading FFmpeg core files...",
+    "converting": "Converting...",
+    "completed": "Conversion complete!",
+    "initCompleted": "Initialization complete!",
+    "failed": "Conversion failed",
+    "initFailed": "Initialization failed",
+    "processing": "Processing...",
+    "downloadProgress": "Download progress",
+    "conversionProgress": "Conversion progress",
+    "downloadDescription": "First use requires downloading FFmpeg core files (about 30MB), please be patient...",
+    "conversionCompleted": "Conversion complete! You can now preview and download GIF",
+    "initCompletedDescription": "Initialization complete! You can now upload video files to start conversion",
+    "conversionError": "Error occurred during conversion, please check video file or retry",
+    "initError": "Error occurred during initialization, please refresh page to retry"
+  },
+  "footer": {
+    "whyChooseUs": "Why choose us?",
+    "privacy": {
+      "title": "Privacy Protection",
+      "description": "All processing is done locally, no files are uploaded"
+    },
+    "fast": {
+      "title": "Fast Conversion",
+      "description": "Based on FFmpeg WASM technology, fast conversion speed"
+    },
+    "responsive": {
+      "title": "Responsive Design",
+      "description": "Supports desktop and mobile use"
+    },
+    "supportedFormats": "Supported formats",
+    "inputFormats": "Input formats",
+    "outputFormats": "Output formats",
+    "gifOptimized": "GIF (optimized compression)",
+    "instructions": "Instructions",
+    "step1": "Upload your video file",
+    "step2": "Adjust conversion parameters",
+    "step3": "Click start conversion",
+    "step4": "Download generated GIF",
+    "copyright": "© 2024 Easy to GIF. Free open source tool, built with FFmpeg.",
+    "feedback": "If you have any questions, please visit our GitHub repository for feedback."
+  }
+}

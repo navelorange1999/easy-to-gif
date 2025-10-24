@@ -2,6 +2,7 @@ import {useState, useEffect, useCallback} from "react";
 
 import {toast} from "sonner";
 import {ThemeProvider} from "next-themes";
+import {useTranslation} from "react-i18next";
 
 import {VideoUploader} from "@/components/VideoUploader";
 import {ConversionSettings} from "@/components/ConversionSettings";
@@ -9,6 +10,7 @@ import {GifPreview} from "@/components/GifPreview";
 import {ProgressBar} from "@/components/ProgressBar";
 import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
+import {SEOHead} from "@/components/SEOHead";
 import {useFFmpeg} from "@/hooks/useFFmpeg";
 import {VideoInfo, ConversionOptions} from "@/types";
 import {Card, CardContent} from "@/components/ui/card";
@@ -18,6 +20,7 @@ import {Toaster} from "@/components/ui/sonner";
 import {AppProvider, useAppContext} from "@/contexts/AppContext";
 
 function AppContent() {
+	const {t} = useTranslation();
 	const [videoFile, setVideoFile] = useState<File | null>(null);
 	const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
 	const [conversionOptions, setConversionOptions] =
@@ -46,13 +49,13 @@ function AppContent() {
 	// 监听初始化完成，显示 toast 提示
 	useEffect(() => {
 		if (isLoaded && !initState.hasShownInitToast) {
-			toast.success("初始化完成！", {
-				description: "现在可以上传视频文件开始转换",
+			toast.success(t("initialization.success"), {
+				description: t("initialization.successDescription"),
 				duration: 3000,
 			});
 			setInitState((prev) => ({...prev, hasShownInitToast: true}));
 		}
-	}, [isLoaded, initState.hasShownInitToast, setInitState]);
+	}, [isLoaded, initState.hasShownInitToast, setInitState, t]);
 
 	const handleVideoUpload = useCallback((file: File, info: VideoInfo) => {
 		setVideoFile(file);
@@ -70,18 +73,18 @@ function AppContent() {
 			console.log("开始转换，当前状态:", {isLoaded, isConverting});
 			const result = await convertToGif(videoFile, conversionOptions);
 			setGifBlob(result);
-			toast.success("转换完成！", {
-				description: "GIF 已生成，您可以预览和下载",
+			toast.success(t("conversion.success"), {
+				description: t("conversion.successDescription"),
 				duration: 4000,
 			});
 		} catch (err) {
 			console.error("Conversion failed:", err);
-			toast.error("转换失败", {
-				description: "请检查视频文件或重试",
+			toast.error(t("conversion.failed"), {
+				description: t("conversion.failedDescription"),
 				duration: 5000,
 			});
 		}
-	}, [videoFile, isLoaded, isConverting, convertToGif, conversionOptions]);
+	}, [videoFile, isLoaded, isConverting, convertToGif, conversionOptions, t]);
 
 	const handleResetSettings = useCallback(() => {
 		setGifBlob(null);
@@ -94,6 +97,7 @@ function AppContent() {
 
 	return (
 		<div className="min-h-screen bg-background">
+			<SEOHead />
 			<Header />
 
 			<main className="container mx-auto px-4 py-8">
@@ -102,10 +106,10 @@ function AppContent() {
 					<div className="hidden md:block text-center space-y-6">
 						<div className="space-y-4">
 							<h1 className="text-4xl font-bold tracking-tight text-foreground">
-								Easy to GIF
+								{t("app.title")}
 							</h1>
 							<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-								免费在线视频转GIF工具，支持多种格式，快速转换，完全免费
+								{t("app.description")}
 							</p>
 						</div>
 
@@ -113,23 +117,29 @@ function AppContent() {
 						<div className="grid gap-4 md:grid-cols-3 max-w-4xl mx-auto">
 							<div className="flex flex-col items-center space-y-2 p-4 rounded-lg border bg-card text-card-foreground">
 								<div className="text-2xl">🔒</div>
-								<h3 className="font-semibold">隐私保护</h3>
+								<h3 className="font-semibold">
+									{t("main.features.privacy.title")}
+								</h3>
 								<p className="text-sm text-muted-foreground text-center">
-									所有处理都在您的浏览器本地完成，我们不会保存任何文件
+									{t("main.features.privacy.description")}
 								</p>
 							</div>
 							<div className="flex flex-col items-center space-y-2 p-4 rounded-lg border bg-card text-card-foreground">
 								<div className="text-2xl">⚡</div>
-								<h3 className="font-semibold">快速转换</h3>
+								<h3 className="font-semibold">
+									{t("main.features.fast.title")}
+								</h3>
 								<p className="text-sm text-muted-foreground text-center">
-									基于 FFmpeg WASM 技术，转换速度快
+									{t("main.features.fast.description")}
 								</p>
 							</div>
 							<div className="flex flex-col items-center space-y-2 p-4 rounded-lg border bg-card text-card-foreground">
 								<div className="text-2xl">📱</div>
-								<h3 className="font-semibold">响应式设计</h3>
+								<h3 className="font-semibold">
+									{t("main.features.responsive.title")}
+								</h3>
 								<p className="text-sm text-muted-foreground text-center">
-									支持桌面端和移动端使用
+									{t("main.features.responsive.description")}
 								</p>
 							</div>
 						</div>
@@ -141,11 +151,10 @@ function AppContent() {
 							<CardContent className="p-6">
 								<div className="text-center mb-4">
 									<h3 className="text-lg font-semibold mb-2">
-										正在初始化转换引擎
+										{t("initialization.title")}
 									</h3>
 									<p className="text-muted-foreground">
-										首次使用需要下载 FFmpeg 核心文件（约
-										30MB），请稍候...
+										{t("initialization.description")}
 									</p>
 								</div>
 								<ProgressBar progress={progress} />
@@ -160,7 +169,7 @@ function AppContent() {
 								<div className="space-y-4">
 									<div>
 										<h4 className="font-semibold text-destructive">
-											初始化失败
+											{t("initialization.failed")}
 										</h4>
 										<p className="text-sm text-destructive/80 mt-1">
 											{error}
@@ -174,7 +183,7 @@ function AppContent() {
 												window.location.reload()
 											}
 										>
-											刷新页面重试
+											{t("initialization.retry")}
 										</Button>
 										<Button
 											variant="outline"
@@ -192,7 +201,9 @@ function AppContent() {
 												});
 											}}
 										>
-											检查浏览器兼容性
+											{t(
+												"initialization.checkCompatibility"
+											)}
 										</Button>
 									</div>
 								</div>
@@ -230,7 +241,7 @@ function AppContent() {
 									<Alert variant="destructive">
 										<AlertDescription>
 											<h4 className="font-semibold mb-2">
-												转换失败
+												{t("conversion.failed")}
 											</h4>
 											<p className="text-sm">{error}</p>
 										</AlertDescription>

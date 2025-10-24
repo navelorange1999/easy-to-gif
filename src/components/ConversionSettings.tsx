@@ -10,6 +10,7 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Label} from "@/components/ui/label";
 import {Slider} from "@/components/ui/slider";
 import {Badge} from "@/components/ui/badge";
+import {useTranslation} from "react-i18next";
 
 interface ConversionSettingsProps {
 	videoInfo: VideoInfo;
@@ -28,6 +29,7 @@ export function ConversionSettings({
 	onReset,
 	disabled,
 }: ConversionSettingsProps) {
+	const {t} = useTranslation();
 	const handlePresetChange = (presetKey: keyof typeof QUALITY_PRESETS) => {
 		const presetConfig = QUALITY_PRESETS[presetKey];
 		onOptionsChange({
@@ -84,7 +86,7 @@ export function ConversionSettings({
 			<CardHeader>
 				<CardTitle className="flex items-center gap-2">
 					<Settings className="h-5 w-5" />
-					转换设置
+					{t("conversion.title")}
 				</CardTitle>
 			</CardHeader>
 			<CardContent className="space-y-6">
@@ -92,7 +94,7 @@ export function ConversionSettings({
 				<div className="space-y-4">
 					<div>
 						<Label className="text-sm font-medium mb-2 block">
-							质量预设
+							{t("conversion.qualityPreset")}
 						</Label>
 						<div className="grid grid-cols-3 gap-2">
 							{Object.entries(QUALITY_PRESETS).map(([key]) => (
@@ -114,10 +116,10 @@ export function ConversionSettings({
 									disabled={disabled}
 								>
 									{key === "low"
-										? "低质量"
+										? t("conversion.low")
 										: key === "medium"
-											? "中等"
-											: "高质量"}
+											? t("conversion.medium")
+											: t("conversion.high")}
 								</Button>
 							))}
 						</div>
@@ -127,14 +129,14 @@ export function ConversionSettings({
 							onClick={applyRecommendedPreset}
 							className="mt-2 p-0 h-auto"
 						>
-							使用推荐配置
+							{t("conversion.useRecommended")}
 						</Button>
 					</div>
 
 					{/* 帧率设置 */}
 					<div className="space-y-2">
 						<Label className="text-sm font-medium">
-							帧率: {options.fps} FPS
+							{t("conversion.fps")}: {options.fps} FPS
 						</Label>
 						<Slider
 							min={5}
@@ -154,7 +156,7 @@ export function ConversionSettings({
 					{/* 分辨率设置 */}
 					<div className="space-y-2">
 						<Label className="text-sm font-medium">
-							输出宽度: {options.scale}px
+							{t("conversion.outputWidth")}: {options.scale}px
 						</Label>
 						<Slider
 							min={240}
@@ -172,7 +174,7 @@ export function ConversionSettings({
 							<span>1080px</span>
 						</div>
 						<p className="text-xs text-muted-foreground">
-							高度将按比例自动调整
+							{t("conversion.heightAuto")}
 						</p>
 					</div>
 
@@ -180,11 +182,13 @@ export function ConversionSettings({
 					<Card className="bg-muted/50">
 						<CardContent className="p-3">
 							<h4 className="text-sm font-medium mb-2">
-								预估信息
+								{t("conversion.estimatedInfo")}
 							</h4>
 							<div className="space-y-1">
 								<div className="flex justify-between text-xs">
-									<span>输出分辨率:</span>
+									<span>
+										{t("conversion.outputResolution")}:
+									</span>
 									<Badge variant="secondary">
 										{options.scale} ×{" "}
 										{Math.round(
@@ -194,16 +198,20 @@ export function ConversionSettings({
 									</Badge>
 								</div>
 								<div className="flex justify-between text-xs">
-									<span>预估文件大小:</span>
+									<span>
+										{t("conversion.estimatedSize")}:
+									</span>
 									<Badge variant="secondary">
 										{getEstimatedSize()}
 									</Badge>
 								</div>
 								<div className="flex justify-between text-xs">
-									<span>处理时长:</span>
+									<span>
+										{t("conversion.processingTime")}:
+									</span>
 									<Badge variant="secondary">
 										约 {Math.ceil(videoInfo.duration * 0.5)}{" "}
-										秒
+										{t("conversion.seconds")}
 									</Badge>
 								</div>
 							</div>
@@ -219,7 +227,7 @@ export function ConversionSettings({
 						className="flex-1"
 					>
 						<Play className="h-4 w-4 mr-2" />
-						开始转换
+						{t("conversion.startConversion")}
 					</Button>
 					<Button
 						variant="outline"
@@ -227,7 +235,7 @@ export function ConversionSettings({
 						disabled={disabled}
 					>
 						<RotateCcw className="h-4 w-4 mr-2" />
-						重置
+						{t("conversion.reset")}
 					</Button>
 				</div>
 			</CardContent>

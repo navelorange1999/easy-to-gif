@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/button";
 import {Card, CardContent} from "@/components/ui/card";
 import {Badge} from "@/components/ui/badge";
 import {Alert, AlertDescription} from "@/components/ui/alert";
+import {useTranslation} from "react-i18next";
 
 interface VideoUploaderProps {
 	onVideoUpload: (file: File, info: VideoInfo) => void;
@@ -13,58 +14,65 @@ interface VideoUploaderProps {
 }
 
 export function VideoUploader({onVideoUpload, disabled}: VideoUploaderProps) {
+	const {t} = useTranslation();
 	const [isDragOver, setIsDragOver] = useState(false);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const validateFile = (file: File): string | null => {
-		const maxSize = 200 * 1024 * 1024; // 200MB
-		const allowedTypes = [
-			"video/mp4",
-			"video/quicktime",
-			"video/x-msvideo",
-			"video/webm",
-			"video/x-matroska",
-			"video/3gpp",
-			"video/x-flv",
-		];
+	const validateFile = useCallback(
+		(file: File): string | null => {
+			const maxSize = 200 * 1024 * 1024; // 200MB
+			const allowedTypes = [
+				"video/mp4",
+				"video/quicktime",
+				"video/x-msvideo",
+				"video/webm",
+				"video/x-matroska",
+				"video/3gpp",
+				"video/x-flv",
+			];
 
-		if (file.size > maxSize) {
-			return "文件大小不能超过 200MB";
-		}
+			if (file.size > maxSize) {
+				return t("upload.fileSizeError");
+			}
 
-		if (!allowedTypes.includes(file.type)) {
-			return "不支持的视频格式，请选择 MP4、MOV、AVI、WebM 等格式";
-		}
+			if (!allowedTypes.includes(file.type)) {
+				return t("upload.formatError");
+			}
 
-		return null;
-	};
+			return null;
+		},
+		[t]
+	);
 
-	const getVideoInfo = (file: File): Promise<VideoInfo> => {
-		return new Promise((resolve, reject) => {
-			const video = document.createElement("video");
-			video.preload = "metadata";
+	const getVideoInfo = useCallback(
+		(file: File): Promise<VideoInfo> => {
+			return new Promise((resolve, reject) => {
+				const video = document.createElement("video");
+				video.preload = "metadata";
 
-			video.onloadedmetadata = () => {
-				resolve({
-					name: file.name,
-					size: file.size,
-					duration: video.duration,
-					width: video.videoWidth,
-					height: video.videoHeight,
-					type: file.type,
-				});
-			};
+				video.onloadedmetadata = () => {
+					resolve({
+						name: file.name,
+						size: file.size,
+						duration: video.duration,
+						width: video.videoWidth,
+						height: video.videoHeight,
+						type: file.type,
+					});
+				};
 
-			video.onerror = () => {
-				reject(new Error("无法读取视频信息"));
-			};
+				video.onerror = () => {
+					reject(new Error(t("upload.metadataError")));
+				};
 
-			video.src = URL.createObjectURL(file);
-		});
-	};
+				video.src = URL.createObjectURL(file);
+			});
+		},
+		[t]
+	);
 
 	const handleFileSelect = useCallback(
 		async (file: File) => {
@@ -82,10 +90,10 @@ export function VideoUploader({onVideoUpload, disabled}: VideoUploaderProps) {
 				setVideoInfo(info);
 				onVideoUpload(file, info);
 			} catch {
-				setError("无法读取视频文件，请选择有效的视频文件");
+				setError(t("upload.readError"));
 			}
 		},
-		[onVideoUpload]
+		[onVideoUpload, t, getVideoInfo, validateFile]
 	);
 
 	const handleDrop = useCallback(
@@ -153,7 +161,7 @@ export function VideoUploader({onVideoUpload, disabled}: VideoUploaderProps) {
 
 	return (
 		<div className="space-y-4">
-			<h2 className="text-xl font-semibold">选择视频文件</h2>
+			<h2 className="text-xl font-semibold">{t("upload.title")}</h2>
 
 			{!selectedFile ? (
 				<Card
@@ -171,16 +179,16 @@ export function VideoUploader({onVideoUpload, disabled}: VideoUploaderProps) {
 					<CardContent className="p-8 text-center">
 						<Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
 						<p className="text-lg font-medium mb-2">
-							拖拽视频文件到这里，或点击选择文件
+							{t("upload.dragText")}
 						</p>
 						<p className="text-sm text-muted-foreground mb-4">
-							支持 MP4、MOV、AVI、WebM 等格式，最大 200MB
+							{t("upload.supportedFormats")}
 						</p>
 						<Button
 							onClick={() => fileInputRef.current?.click()}
 							disabled={disabled}
 						>
-							选择文件
+							{t("upload.selectFile")}
 						</Button>
 						<input
 							ref={fileInputRef}

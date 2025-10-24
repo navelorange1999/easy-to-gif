@@ -3,6 +3,7 @@ import {Card, CardContent} from "@/components/ui/card";
 import {Progress} from "@/components/ui/progress";
 import {Badge} from "@/components/ui/badge";
 import {useAppContext} from "@/contexts/AppContext";
+import {useTranslation} from "react-i18next";
 
 interface ProgressBarProps {
 	// 初始化进度（可选）
@@ -22,6 +23,7 @@ interface ProgressBarProps {
 export const ProgressBar = memo(function ProgressBar({
 	progress,
 }: ProgressBarProps) {
+	const {t} = useTranslation();
 	const {conversionState} = useAppContext();
 
 	// 优先使用转换状态，如果没有则使用传入的初始化进度
@@ -34,25 +36,27 @@ export const ProgressBar = memo(function ProgressBar({
 		: progress || {
 				stage: "idle" as const,
 				progress: 0,
-				message: "准备中...",
+				message: t("progress.preparing"),
 			};
 
 	const getStageText = (stage: string): string => {
 		switch (stage) {
 			case "loading":
-				return "准备中...";
+				return t("progress.preparing");
 			case "initializing":
-				return "正在下载 FFmpeg 核心文件...";
+				return t("progress.downloading");
 			case "converting":
-				return "转换中...";
+				return t("progress.converting");
 			case "completed":
 				return conversionState.isConverting
-					? "转换完成！"
-					: "初始化完成！";
+					? t("progress.completed")
+					: t("progress.initCompleted");
 			case "error":
-				return conversionState.isConverting ? "转换失败" : "初始化失败";
+				return conversionState.isConverting
+					? t("progress.failed")
+					: t("progress.initFailed");
 			default:
-				return "处理中...";
+				return t("progress.processing");
 		}
 	};
 
@@ -110,8 +114,8 @@ export const ProgressBar = memo(function ProgressBar({
 							<div className="flex justify-between text-sm">
 								<span>
 									{currentProgress.stage === "initializing"
-										? "下载进度"
-										: "转换进度"}
+										? t("progress.downloadProgress")
+										: t("progress.conversionProgress")}
 								</span>
 								<span>
 									{Math.min(
@@ -130,8 +134,7 @@ export const ProgressBar = memo(function ProgressBar({
 							/>
 							{currentProgress.stage === "initializing" && (
 								<p className="text-xs text-muted-foreground">
-									首次使用需要下载 FFmpeg 核心文件（约
-									30MB），请耐心等待...
+									{t("progress.downloadDescription")}
 								</p>
 							)}
 						</div>
@@ -144,8 +147,8 @@ export const ProgressBar = memo(function ProgressBar({
 							</div>
 							<p className="text-sm text-muted-foreground">
 								{conversionState.isConverting
-									? "转换完成！现在可以预览和下载 GIF"
-									: "初始化完成！现在可以上传视频文件开始转换"}
+									? t("progress.conversionCompleted")
+									: t("progress.initCompletedDescription")}
 							</p>
 						</div>
 					)}
@@ -155,8 +158,8 @@ export const ProgressBar = memo(function ProgressBar({
 							<div className="text-red-500 text-4xl mb-2">😞</div>
 							<p className="text-sm text-muted-foreground">
 								{conversionState.isConverting
-									? "转换过程中出现错误，请检查视频文件或重试"
-									: "初始化过程中出现错误，请刷新页面重试"}
+									? t("progress.conversionError")
+									: t("progress.initError")}
 							</p>
 						</div>
 					)}
