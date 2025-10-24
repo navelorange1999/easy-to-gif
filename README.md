@@ -2,6 +2,19 @@
 
 A free, privacy-focused online video to GIF converter built with React and FFmpeg WASM. Convert videos to high-quality GIFs directly in your browser with zero server dependencies.
 
+[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://dash.cloudflare.com/pages)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)](https://www.typescriptlang.org/)
+
+## 🚀 Quick Start
+
+1. **Try it online**: Visit the live demo at [easy2gif.chankay.com](https://easy2gif.chankay.com)
+2. **Upload a video**: Drag and drop or click to select your video file
+3. **Adjust settings**: Configure frame rate, resolution, and quality
+4. **Convert**: Click "Start Conversion" and wait for the magic to happen
+5. **Download**: Save your high-quality GIF!
+
 ## ✨ Features
 
 - 🎥 **Multi-format Support**: MP4, MOV, AVI, WebM, MKV and other popular video formats
@@ -30,15 +43,21 @@ A free, privacy-focused online video to GIF converter built with React and FFmpe
 - Node.js 18+
 - pnpm (recommended) or npm
 
-### Installation
+### Environment Setup
+
+1. **Clone and install dependencies**:
 
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/easy-to-gif.git
+git clone https://github.com/navelorange1999/easy-to-gif.git
 cd easy-to-gif
-
-# Install dependencies
 pnpm install
+```
+
+2. **Configure environment variables** (optional):
+
+```bash
+# Create .env.local file
+echo "VITE_GITHUB_OWNER=your-username" > .env.local
 ```
 
 ### Development Server
@@ -57,22 +76,34 @@ pnpm build
 
 ## 📦 Deployment
 
-### Using Cloudflare Pages
+### Using Cloudflare Pages with Deploy Hooks
 
 1. **Fork this repository** to your GitHub account
 
-2. **Configure GitHub Secrets**:
-    - Add the following secrets in your GitHub repository settings:
-        - `CLOUDFLARE_API_TOKEN`: Your Cloudflare API Token
-        - `CLOUDFLARE_ACCOUNT_ID`: Your Cloudflare Account ID
+2. **Create Cloudflare Pages Project**:
+    - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/pages)
+    - Create a new Pages project
+    - Connect your GitHub repository
 
-3. **Automatic Deployment**:
-    - Push code to the `main` branch
-    - GitHub Actions will automatically build and deploy to Cloudflare Pages
+3. **Configure Deploy Hook**:
+    - In your Pages project settings, go to **Settings** > **Builds**
+    - Click **Add deploy hook**
+    - Name: `github-release-deploy`
+    - Branch: `main`
+    - Copy the generated Deploy Hook URL
 
-4. **Custom Domain** (optional):
-    - Add a custom domain in Cloudflare Pages project settings
-    - Update the domain in `public/sitemap.xml`
+4. **Configure GitHub Secrets**:
+    - Add the following secret in your GitHub repository settings:
+        - `CLOUDFLARE_DEPLOY_HOOK_URL`: Your Deploy Hook URL
+
+5. **Automatic Deployment**:
+    - Create a GitHub Release to trigger deployment
+    - GitHub Actions will automatically trigger Cloudflare Pages build
+
+6. **Environment Variables** (optional):
+    - In Cloudflare Pages settings, add environment variables:
+        - `VITE_GITHUB_OWNER`: Your GitHub username
+    - Update `public/sitemap.xml` and `public/robots.txt` with your domain
 
 ### Manual Deployment
 
@@ -112,6 +143,28 @@ npx wrangler pages deploy dist --project-name=easy-to-gif
 - **File Size Limit**: Maximum 200MB
 - **Browser Support**: Modern browsers with SharedArrayBuffer support
 - **Initial Load**: Downloads FFmpeg core files (~30MB) on first use
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+The project supports the following environment variables:
+
+- `VITE_GITHUB_OWNER`: GitHub username for the repository link (default: `navelorange1999`)
+
+### Build Configuration
+
+- **Framework**: React 18 + TypeScript + Vite 5
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Video Processing**: FFmpeg WASM for client-side conversion
+- **Deployment**: Cloudflare Pages with Deploy Hooks
+- **CI/CD**: GitHub Actions triggered by releases
+
+### Browser Requirements
+
+- **SharedArrayBuffer Support**: Required for FFmpeg WASM
+- **Modern Browsers**: Chrome 68+, Firefox 79+, Safari 15.2+
+- **Initial Load**: Downloads ~30MB FFmpeg core files on first use
 
 ## 🔧 Project Structure
 
@@ -187,7 +240,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions, please:
 
-1. Check the [Issues](https://github.com/your-username/easy-to-gif/issues) page
+1. Check the [Issues](https://github.com/navelorange1999/easy-to-gif/issues) page
 2. Create a new issue with detailed information
 3. For security issues, please email us directly
 

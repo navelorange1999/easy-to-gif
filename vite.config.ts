@@ -7,6 +7,10 @@ import {fileURLToPath} from "node:url";
 export default defineConfig(({mode}) => {
 	const env = loadEnv(mode, process.cwd(), "");
 
+	// In Cloudflare Pages builds, environment variables are injected via process.env
+	// We need to pass these variables to Vite's define configuration
+	const githubOwner = env.VITE_GITHUB_OWNER || process.env.VITE_GITHUB_OWNER;
+
 	return {
 		plugins: [react()],
 		resolve: {
@@ -33,10 +37,8 @@ export default defineConfig(({mode}) => {
 		},
 		define: {
 			global: "globalThis",
-			// environment variables
-			"import.meta.env.VITE_GITHUB_OWNER": JSON.stringify(
-				env.VITE_GITHUB_OWNER
-			),
+			// environment variables - prioritize Cloudflare Pages injected variables
+			"import.meta.env.VITE_GITHUB_OWNER": JSON.stringify(githubOwner),
 		},
 	};
 });
