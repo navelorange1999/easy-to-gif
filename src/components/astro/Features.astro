@@ -1,0 +1,35 @@
+---
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang as 'en' | 'zh');
+---
+
+<div class="grid gap-4 md:grid-cols-3 max-w-4xl mx-auto">
+  <div class="flex flex-col items-center space-y-2 p-4 rounded-lg border bg-card text-card-foreground">
+    <div class="text-2xl">🔒</div>
+    <h3 class="font-semibold">{t('main.features.privacy.title')}</h3>
+    <p class="text-sm text-muted-foreground text-center">
+      {t('main.features.privacy.description')}
+    </p>
+  </div>
+  <div class="flex flex-col items-center space-y-2 p-4 rounded-lg border bg-card text-card-foreground">
+    <div class="text-2xl">⚡</div>
+    <h3 class="font-semibold">{t('main.features.fast.title')}</h3>
+    <p class="text-sm text-muted-foreground text-center">
+      {t('main.features.fast.description')}
+    </p>
+  </div>
+  <div class="flex flex-col items-center space-y-2 p-4 rounded-lg border bg-card text-card-foreground">
+    <div class="text-2xl">📱</div>
+    <h3 class="font-semibold">{t('main.features.responsive.title')}</h3>
+    <p class="text-sm text-muted-foreground text-center">
+      {t('main.features.responsive.description')}
+    </p>
+  </div>
+</div>
+

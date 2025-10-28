@@ -1,0 +1,111 @@
+---
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang as 'en' | 'zh');
+---
+
+<footer class="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-16">
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Features -->
+      <div class="rounded-lg border bg-card text-card-foreground">
+        <div class="p-6">
+          <h3 class="text-base font-semibold mb-3">{t('footer.whyChooseUs')}</h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <div class="text-green-500 mt-0.5">🔒</div>
+              <div>
+                <p class="font-medium text-sm">{t('footer.privacy.title')}</p>
+                <p class="text-xs text-muted-foreground">{t('footer.privacy.description')}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="text-yellow-500 mt-0.5">⚡</div>
+              <div>
+                <p class="font-medium text-sm">{t('footer.fast.title')}</p>
+                <p class="text-xs text-muted-foreground">{t('footer.fast.description')}</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="text-blue-500 mt-0.5">📱</div>
+              <div>
+                <p class="font-medium text-sm">{t('footer.responsive.title')}</p>
+                <p class="text-xs text-muted-foreground">{t('footer.responsive.description')}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supported Formats -->
+      <div class="rounded-lg border bg-card text-card-foreground">
+        <div class="p-6">
+          <h3 class="text-base font-semibold mb-3">{t('footer.supportedFormats')}</h3>
+          <div class="space-y-3">
+            <div>
+              <p class="font-medium text-sm mb-2">{t('footer.inputFormats')}</p>
+              <div class="flex flex-wrap gap-1">
+                {['MP4', 'MOV', 'AVI', 'WebM', 'MKV', '3GP', 'FLV'].map((format) => (
+                  <span class="inline-flex items-center rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
+                    {format}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p class="font-medium text-sm mb-2">{t('footer.outputFormats')}</p>
+              <span class="inline-flex items-center rounded-md border px-2 py-1 text-xs">
+                {t('footer.gifOptimized')}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="rounded-lg border bg-card text-card-foreground">
+        <div class="p-6">
+          <h3 class="text-base font-semibold mb-3">{t('footer.instructions')}</h3>
+          <div class="space-y-2 text-xs text-muted-foreground">
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded border text-xs">1</span>
+              <span>{t('footer.step1')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded border text-xs">2</span>
+              <span>{t('footer.step2')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded border text-xs">3</span>
+              <span>{t('footer.step3')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center justify-center w-5 h-5 rounded border text-xs">4</span>
+              <span>{t('footer.step4')}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-8 border-t border-border" />
+    
+    <div class="text-center text-sm text-muted-foreground">
+      <div class="flex items-center justify-center gap-1 mb-2">
+        <span>{t('header.madeWith')}</span>
+        <svg class="h-4 w-4 text-destructive" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+        </svg>
+        <span>{t('header.forCreators')}</span>
+      </div>
+      <p>{t('footer.copyright')}</p>
+      <p class="mt-1">{t('footer.feedback')}</p>
+    </div>
+  </div>
+</footer>
+

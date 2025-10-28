@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  lang: string;
+}
+
+const { title, description, lang } = Astro.props;
+const currentLang = lang === 'en' ? 'en-US' : 'zh-CN';
+---
+
+<!DOCTYPE html>
+<html lang={currentLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={lang === 'en' ? 'video to gif,online converter,free tool,video processing,FFmpeg' : '视频转GIF,在线转换,免费工具,视频处理,FFmpeg'} />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={currentLang} />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Security Headers for SharedArrayBuffer -->
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" />
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+    
+    <!-- Theme Script -->
+    <script>
+      const theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../index.css';
+</style>
+
