@@ -3,6 +3,10 @@
     "title": "Easy to GIF",
     "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free"
   },
+  "hero": {
+    "title": "Easy to GIF",
+    "subtitle": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free"
+  },
   "header": {
     "github": "GitHub",
     "madeWith": "Made with",

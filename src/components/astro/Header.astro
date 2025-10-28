@@ -1,13 +1,13 @@
 ---
 import { useTranslations } from '../../i18n/utils';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 
 interface Props {
-  lang: string;
+  lang: 'en' | 'zh' | 'ja';
 }
 
 const { lang } = Astro.props;
-const t = useTranslations(lang as 'en' | 'zh');
-const otherLangPath = lang === 'en' ? '/zh/' : '/';
+const t = useTranslations(lang);
 ---
 
 <header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -46,11 +46,7 @@ const otherLangPath = lang === 'en' ? '/zh/' : '/';
           </div>
         </a>
         <div class="flex items-center gap-2">
-          <a 
-            href={otherLangPath}
-            class="px-3 py-2 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground flex items-center gap-2"
-            set:html={lang === 'en' ? '中文' : 'English'}
-          />
+          <LanguageSwitcher client:only="react" lang={lang} />
         </div>
       </nav>
     </div>

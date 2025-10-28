@@ -1,41 +1,6 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/astro/Header.astro';
-import Footer from '../components/astro/Footer.astro';
-import Features from '../components/astro/Features.astro';
-import ConverterApp from '../components/ConverterApp';
-
-const lang = 'en';
-const title = 'Easy to GIF - Free Online Video to GIF Converter';
-const description = 'Free online video to GIF converter, supports multiple formats, fast conversion, completely free';
+import Page from '../components/astro/Page.astro';
 ---
 
-<Layout title={title} description={description} lang={lang}>
-  <div class="min-h-screen bg-background">
-    <Header lang={lang} />
-
-    <main class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto space-y-8">
-        <!-- Hero Section - Desktop Only -->
-        <div class="hidden md:block text-center space-y-6">
-          <div class="space-y-4">
-            <h1 class="text-4xl font-bold tracking-tight text-foreground">
-              Easy to GIF
-            </h1>
-            <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Free online video to GIF converter, supports multiple formats, fast conversion, completely free
-            </p>
-          </div>
-
-          <Features lang={lang} />
-        </div>
-
-        <!-- Converter App -->
-        <ConverterApp client:only="react" lang={lang} />
-      </div>
-    </main>
-
-    <Footer lang={lang} />
-  </div>
-</Layout>
+<Page lang="en" />
 

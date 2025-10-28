@@ -1,9 +1,11 @@
 import translationsEN from "./locales/en-US.json";
 import translationsZH from "./locales/zh-CN.json";
+import translationsJA from "./locales/ja-JP.json";
 
 export const languages = {
 	en: "English",
 	zh: "中文",
+	ja: "日本語",
 };
 
 export const defaultLang = "en";
@@ -17,10 +19,11 @@ export function getLangFromUrl(url: URL) {
 export const translations = {
 	en: translationsEN,
 	zh: translationsZH,
+	ja: translationsJA,
 } as const;
 
 export function useTranslations(lang: keyof typeof translations) {
-	return function t(key: string) {
+	return function t(key: string): string {
 		const keys = key.split(".");
 		let value: Record<string, unknown> = translations[lang];
 		for (const k of keys) {
@@ -38,6 +41,6 @@ export function useTranslations(lang: keyof typeof translations) {
 			}
 		}
 
-		return value || key;
+		return (value as unknown as string) || key;
 	};
 }

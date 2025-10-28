@@ -5,6 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 // load locales
 import zhCN from "./locales/zh-CN.json";
 import enUS from "./locales/en-US.json";
+import jaJP from "./locales/ja-JP.json";
 
 const resources = {
 	"zh-CN": {
@@ -13,13 +14,16 @@ const resources = {
 	"en-US": {
 		translation: enUS,
 	},
+	"ja-JP": {
+		translation: jaJP,
+	},
 };
 
 i18n.use(LanguageDetector)
 	.use(initReactI18next)
 	.init({
 		resources,
-		fallbackLng: "zh-CN",
+		fallbackLng: "en-US",
 		debug: import.meta.env.DEV,
 
 		detection: {

@@ -1,6 +1,7 @@
 import {useState, useCallback, useEffect} from "react";
 import {toast} from "sonner";
 import {ThemeProvider} from "next-themes";
+import {useTranslation} from "react-i18next";
 import {useFFmpeg} from "@/hooks/useFFmpeg";
 import {VideoInfo, ConversionOptions} from "@/types";
 import {VideoUploader} from "@/components/VideoUploader";
@@ -12,6 +13,7 @@ import {Button} from "@/components/ui/button";
 import {Alert, AlertDescription} from "@/components/ui/alert";
 import {Toaster} from "@/components/ui/sonner";
 import {AppProvider, useAppContext} from "@/contexts/AppContext";
+import "@/i18n/index";
 
 interface ConverterAppProps {
 	lang: string;
@@ -29,8 +31,17 @@ function ConverterContent({lang}: ConverterAppProps) {
 	const [gifBlob, setGifBlob] = useState<Blob | null>(null);
 
 	const {initState} = useAppContext();
-	const {isConverting, progress, error, convertToGif, initializeFFmpeg} =
-		useFFmpeg();
+	const {isConverting, error, convertToGif, initializeFFmpeg} = useFFmpeg();
+	const {t, i18n} = useTranslation();
+
+	// Set language when lang prop changes
+	useEffect(() => {
+		const targetLang =
+			lang === "zh" ? "zh-CN" : lang === "ja" ? "ja-JP" : "en-US";
+		if (i18n.language !== targetLang) {
+			i18n.changeLanguage(targetLang);
+		}
+	}, [lang, i18n]);
 
 	// Auto-initialize FFmpeg on page load
 	useEffect(() => {
@@ -58,29 +69,18 @@ function ConverterContent({lang}: ConverterAppProps) {
 		try {
 			const result = await convertToGif(videoFile, conversionOptions);
 			setGifBlob(result);
-			const successMsg =
-				lang === "zh" ? "转换完成！" : "Conversion complete!";
-			const descMsg =
-				lang === "zh"
-					? "GIF 已生成，您可以预览和下载"
-					: "GIF has been generated, you can preview and download";
-			toast.success(successMsg, {
-				description: descMsg,
+			toast.success(t("conversion.success"), {
+				description: t("conversion.successDescription"),
 				duration: 4000,
 			});
 		} catch (err) {
 			console.error("Conversion failed:", err);
-			const failMsg = lang === "zh" ? "转换失败" : "Conversion failed";
-			const descMsg =
-				lang === "zh"
-					? "请检查视频文件或重试"
-					: "Please check video file or retry";
-			toast.error(failMsg, {
-				description: descMsg,
+			toast.error(t("conversion.failed"), {
+				description: t("conversion.failedDescription"),
 				duration: 5000,
 			});
 		}
-	}, [videoFile, convertToGif, conversionOptions, lang]);
+	}, [videoFile, convertToGif, conversionOptions, t]);
 
 	const handleResetSettings = useCallback(() => {
 		setGifBlob(null);
@@ -90,42 +90,6 @@ function ConverterContent({lang}: ConverterAppProps) {
 			quality: "medium",
 		});
 	}, []);
-
-	const t = (key: string): string => {
-		// Simple translation function, key names from existing i18n structure
-		const keys = key.split(".");
-		const translations = {
-			initialization: {
-				title:
-					lang === "zh"
-						? "正在初始化转换引擎"
-						: "Initializing conversion engine",
-				description:
-					lang === "zh"
-						? "首次使用需要下载 FFmpeg 核心文件（约30MB），请稍候..."
-						: "First use requires downloading FFmpeg core files (about 30MB), please wait...",
-				failed: lang === "zh" ? "初始化失败" : "Initialization failed",
-				retry: lang === "zh" ? "刷新页面重试" : "Refresh page to retry",
-				checkCompatibility:
-					lang === "zh"
-						? "检查浏览器兼容性"
-						: "Check browser compatibility",
-			},
-			conversion: {
-				failed: lang === "zh" ? "转换失败" : "Conversion failed",
-			},
-		};
-
-		let value: Record<string, unknown> | string = translations;
-		for (const k of keys) {
-			if (value && typeof value === "object" && k in value) {
-				value = value[k] as Record<string, unknown>;
-			} else {
-				return key;
-			}
-		}
-		return typeof value === "string" ? value : key;
-	};
 
 	return (
 		<>
@@ -141,7 +105,7 @@ function ConverterContent({lang}: ConverterAppProps) {
 								{t("initialization.description")}
 							</p>
 						</div>
-						<ProgressBar progress={progress} />
+						<ProgressBar />
 					</CardContent>
 				</Card>
 			)}

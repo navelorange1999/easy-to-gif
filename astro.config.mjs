@@ -12,7 +12,8 @@ export default defineConfig({
 			defaultLocale: 'en',
 			locales: {
 				en: 'en',
-				zh: 'zh'
+				zh: 'zh',
+				ja: 'ja'
 			}
 		}
 	})
@@ -21,7 +22,7 @@ export default defineConfig({
 	site: 'https://easy-to-gif.pages.dev',
 	i18n: {
 		defaultLocale: 'en',
-		locales: ['en', 'zh'],
+		locales: ['en', 'zh', 'ja'],
 		routing: {
 			prefixDefaultLocale: false
 		}

@@ -3,6 +3,10 @@
     "title": "Easy to GIF",
     "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费"
   },
+  "hero": {
+    "title": "Easy to GIF",
+    "subtitle": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费"
+  },
   "header": {
     "github": "GitHub",
     "madeWith": "Made with",
