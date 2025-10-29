@@ -10,7 +10,7 @@ A free, privacy-focused online video to GIF converter built with Astro, React an
 
 ## 🚀 Quick Start
 
-1. **Try it online**: Visit the live demo at [https://easy-to-gif.pages.dev](https://easy-to-gif.pages.dev)
+1. **Try it online**: Visit the live demo at [https://easy2gif.chankay.com](https://easy2gif.chankay.com)
 2. **Choose language**: Select your preferred language (English, 中文, 日本語)
 3. **Upload a video**: Drag and drop or click to select your video file
 4. **Adjust settings**: Configure frame rate, resolution, and quality

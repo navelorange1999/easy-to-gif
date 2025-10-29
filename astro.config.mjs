@@ -19,7 +19,7 @@ export default defineConfig({
 	})
 	],
 	output: 'static',
-	site: 'https://easy-to-gif.pages.dev',
+	site: 'https://easy2gif.chankay.com',
 	i18n: {
 		defaultLocale: 'en',
 		locales: ['en', 'zh', 'ja'],
