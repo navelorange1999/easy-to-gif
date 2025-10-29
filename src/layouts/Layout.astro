@@ -1,12 +1,17 @@
 ---
+import { LanguageCode, CODE_TO_I18N_MAP } from '../i18n/constants';
+import { useTranslations } from '../i18n/utils';
+
 interface Props {
   title: string;
   description: string;
-  lang: string;
+  lang: LanguageCode;
 }
 
 const { title, description, lang } = Astro.props;
-const currentLang = lang === 'en' ? 'en-US' : 'zh-CN';
+const currentLang = CODE_TO_I18N_MAP[lang] || CODE_TO_I18N_MAP['en'];
+const t = useTranslations(lang);
+const keywords = t('app.keywords');
 ---
 
 <!DOCTYPE html>
@@ -20,7 +25,7 @@ const currentLang = lang === 'en' ? 'en-US' : 'zh-CN';
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content={lang === 'en' ? 'video to gif,online converter,free tool,video processing,FFmpeg' : '视频转GIF,在线转换,免费工具,视频处理,FFmpeg'} />
+    <meta name="keywords" content={keywords} />
     
     <!-- Open Graph -->
     <meta property="og:title" content={title} />

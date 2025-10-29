@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费"
+    "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费",
+    "keywords": "视频转GIF,在线转换,免费工具,视频处理,FFmpeg"
   },
   "hero": {
     "title": "Easy to GIF",

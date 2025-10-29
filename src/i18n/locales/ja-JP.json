@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料"
+    "description": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料",
+    "keywords": "動画からGIF,オンライン変換,無料ツール,動画処理,FFmpeg"
   },
   "hero": {
     "title": "Easy to GIF",

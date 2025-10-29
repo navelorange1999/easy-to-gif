@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free"
+    "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free",
+    "keywords": "video to gif,online converter,free tool,video processing,FFmpeg"
   },
   "hero": {
     "title": "Easy to GIF",

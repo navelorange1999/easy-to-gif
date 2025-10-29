@@ -13,10 +13,15 @@ import {Button} from "@/components/ui/button";
 import {Alert, AlertDescription} from "@/components/ui/alert";
 import {Toaster} from "@/components/ui/sonner";
 import {AppProvider, useAppContext} from "@/contexts/AppContext";
+import {
+	CODE_TO_I18N_MAP,
+	DEFAULT_LANGUAGE,
+	LanguageCode,
+} from "@/i18n/constants";
 import "@/i18n/index";
 
 interface ConverterAppProps {
-	lang: string;
+	lang: LanguageCode;
 }
 
 function ConverterContent({lang}: ConverterAppProps) {
@@ -37,7 +42,7 @@ function ConverterContent({lang}: ConverterAppProps) {
 	// Set language when lang prop changes
 	useEffect(() => {
 		const targetLang =
-			lang === "zh" ? "zh-CN" : lang === "ja" ? "ja-JP" : "en-US";
+			CODE_TO_I18N_MAP[lang] || CODE_TO_I18N_MAP[DEFAULT_LANGUAGE];
 		if (i18n.language !== targetLang) {
 			i18n.changeLanguage(targetLang);
 		}

@@ -24,7 +24,6 @@ i18n.use(LanguageDetector)
 	.init({
 		resources,
 		fallbackLng: "en-US",
-		debug: import.meta.env.DEV,
 
 		detection: {
 			order: ["localStorage", "navigator", "htmlTag"],

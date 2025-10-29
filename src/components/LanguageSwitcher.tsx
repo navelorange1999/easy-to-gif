@@ -5,44 +5,37 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import {LANGUAGES, CODE_TO_PATH_MAP, LanguageCode} from "@/i18n/constants";
 
 interface LanguageSwitcherProps {
-	lang: "en" | "zh" | "ja";
+	lang: LanguageCode;
 }
-
-const languages = [
-	{value: "en", label: "English", flag: "🇺🇸"},
-	{value: "zh", label: "中文", flag: "🇨🇳"},
-	{value: "ja", label: "日本語", flag: "🇯🇵"},
-];
 
 export function LanguageSwitcher({lang}: LanguageSwitcherProps) {
 	const handleLanguageChange = (value: string) => {
-		// 根据选择的语言跳转到对应页面
-		const paths = {
-			en: "/",
-			zh: "/zh/",
-			ja: "/ja/",
-		};
-
-		window.location.href = paths[value as keyof typeof paths];
+		// Redirect to the corresponding page based on the selected language
+		const path = CODE_TO_PATH_MAP[value as LanguageCode];
+		window.location.href = path;
 	};
 
-	const currentLanguage = languages.find((l) => l.value === lang);
+	const currentLanguage = LANGUAGES.find((l) => l.code === lang);
 
 	return (
 		<Select value={lang} onValueChange={handleLanguageChange}>
-			<SelectTrigger className="w-[140px]">
+			<SelectTrigger className="sm:w-[120px] w-[60px]">
 				<SelectValue>
 					<div className="flex items-center gap-2">
 						<span>{currentLanguage?.flag}</span>
-						<span>{currentLanguage?.label}</span>
+						<span className="hidden sm:inline">
+							{currentLanguage?.label}
+						</span>
 					</div>
 				</SelectValue>
 			</SelectTrigger>
+
 			<SelectContent>
-				{languages.map((language) => (
-					<SelectItem key={language.value} value={language.value}>
+				{LANGUAGES.map((language) => (
+					<SelectItem key={language.code} value={language.code}>
 						<div className="flex items-center gap-2">
 							<span>{language.flag}</span>
 							<span>{language.label}</span>

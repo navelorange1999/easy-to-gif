@@ -1,9 +1,11 @@
 ---
 import { useTranslations } from '../../i18n/utils';
 import { LanguageSwitcher } from '../LanguageSwitcher';
+import { ThemeToggle } from '../ThemeToggle';
+import { LanguageCode } from '../../i18n/constants';
 
 interface Props {
-  lang: 'en' | 'zh' | 'ja';
+  lang: LanguageCode;
 }
 
 const { lang } = Astro.props;
@@ -11,7 +13,7 @@ const t = useTranslations(lang);
 ---
 
 <header class="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-  <div class="container flex h-16 max-w-screen-2xl items-center">
+  <div class="container sm:px-8 px-4 flex h-16 max-w-screen-2xl items-center">
     <div class="mr-4 hidden md:flex">
       <div class="flex items-center gap-2">
         <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
@@ -46,6 +48,7 @@ const t = useTranslations(lang);
           </div>
         </a>
         <div class="flex items-center gap-2">
+          <ThemeToggle client:only="react" />
           <LanguageSwitcher client:only="react" lang={lang} />
         </div>
       </nav>
