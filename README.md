@@ -296,4 +296,4 @@ If you encounter any issues or have questions, please:
 
 ---
 
-Made with ❤️ for creators and developers worldwide.
+Made with 🌟 for creators and developers worldwide.
