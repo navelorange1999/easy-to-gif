@@ -1,0 +1,135 @@
+{
+  "app": {
+    "title": "Easy to GIF",
+    "description": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料"
+  },
+  "hero": {
+    "title": "Easy to GIF",
+    "subtitle": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料"
+  },
+  "header": {
+    "github": "GitHub",
+    "madeWith": "Made with",
+    "forCreators": "for creators"
+  },
+  "main": {
+    "features": {
+      "privacy": {
+        "title": "プライバシー保護",
+        "description": "すべての処理はブラウザでローカルに実行され、ファイルは保存されません"
+      },
+      "fast": {
+        "title": "高速変換",
+        "description": "FFmpeg WASM技術をベースにした高速変換"
+      },
+      "responsive": {
+        "title": "レスポンシブデザイン",
+        "description": "デスクトップとモバイルに対応"
+      }
+    }
+  },
+  "initialization": {
+    "title": "変換エンジンを初期化中",
+    "description": "初回使用時はFFmpegコアファイル（約30MB）のダウンロードが必要です。お待ちください...",
+    "failed": "初期化に失敗しました",
+    "retry": "ページを更新して再試行",
+    "checkCompatibility": "ブラウザの互換性を確認",
+    "success": "初期化完了！",
+    "successDescription": "動画ファイルをアップロードして変換を開始できます"
+  },
+  "upload": {
+    "title": "動画ファイルを選択",
+    "dragText": "動画ファイルをここにドラッグするか、クリックして選択",
+    "supportedFormats": "MP4、MOV、AVI、WebMなどの形式に対応、最大200MB",
+    "selectFile": "ファイルを選択",
+    "fileSizeError": "ファイルサイズは200MBを超えることはできません",
+    "formatError": "サポートされていない動画形式です。MP4、MOV、AVI、WebMなどの形式を選択してください",
+    "readError": "動画ファイルを読み取ることができません。有効な動画ファイルを選択してください",
+    "metadataError": "動画情報を読み取れません"
+  },
+  "conversion": {
+    "title": "変換設定",
+    "qualityPreset": "品質プリセット",
+    "low": "低品質",
+    "medium": "中品質",
+    "high": "高品質",
+    "useRecommended": "推奨設定を使用",
+    "fps": "フレームレート",
+    "outputWidth": "出力幅",
+    "heightAuto": "高さは自動的に比例調整されます",
+    "estimatedInfo": "推定情報",
+    "outputResolution": "出力解像度",
+    "estimatedSize": "推定ファイルサイズ",
+    "processingTime": "処理時間",
+    "seconds": "秒",
+    "startConversion": "変換を開始",
+    "reset": "リセット",
+    "success": "変換完了！",
+    "successDescription": "GIFが生成されました。プレビューとダウンロードができます",
+    "failed": "変換に失敗しました",
+    "failedDescription": "動画ファイルを確認するか、再試行してください"
+  },
+  "preview": {
+    "title": "変換結果",
+    "alt": "変換されたGIF",
+    "clickToPreview": "クリックしてプレビュー",
+    "fileSize": "ファイルサイズ",
+    "outputSize": "出力サイズ",
+    "fps": "フレームレート",
+    "downloadGif": "GIFをダウンロード",
+    "reconvert": "再変換",
+    "previewTitle": "GIFプレビュー",
+    "closePreview": "プレビューを閉じる",
+    "tips": {
+      "title": "使用のヒント",
+      "items": [
+        "GIFサムネイルやプレビューボタンをクリックして大画像を表示",
+        "GIFを右クリックしてローカルに保存",
+        "GIFが大きすぎる場合は、変換パラメータを調整して再生成できます"
+      ]
+    }
+  },
+  "progress": {
+    "preparing": "準備中...",
+    "downloading": "FFmpegコアファイルをダウンロード中...",
+    "converting": "変換中...",
+    "completed": "変換完了！",
+    "initCompleted": "初期化完了！",
+    "failed": "変換に失敗しました",
+    "initFailed": "初期化に失敗しました",
+    "processing": "処理中...",
+    "downloadProgress": "ダウンロード進捗",
+    "conversionProgress": "変換進捗",
+    "downloadDescription": "初回使用時はFFmpegコアファイル（約30MB）のダウンロードが必要です。しばらくお待ちください...",
+    "conversionCompleted": "変換完了！GIFをプレビューしてダウンロードできます",
+    "initCompletedDescription": "初期化完了！動画ファイルをアップロードして変換を開始できます",
+    "conversionError": "変換中にエラーが発生しました。動画ファイルを確認するか、再試行してください",
+    "initError": "初期化中にエラーが発生しました。ページを更新して再試行してください"
+  },
+  "footer": {
+    "whyChooseUs": "なぜ選ばれるのか？",
+    "privacy": {
+      "title": "プライバシー保護",
+      "description": "すべての処理はローカルで行われ、ファイルはアップロードされません"
+    },
+    "fast": {
+      "title": "高速変換",
+      "description": "FFmpeg WASM技術をベースにした高速変換"
+    },
+    "responsive": {
+      "title": "レスポンシブデザイン",
+      "description": "デスクトップとモバイルに対応"
+    },
+    "supportedFormats": "対応形式",
+    "inputFormats": "入力形式",
+    "outputFormats": "出力形式",
+    "gifOptimized": "GIF（最適化圧縮）",
+    "instructions": "使用方法",
+    "step1": "動画ファイルをアップロード",
+    "step2": "変換パラメータを調整",
+    "step3": "変換を開始をクリック",
+    "step4": "生成されたGIFをダウンロード",
+    "copyright": "© 2024 Easy to GIF. FFmpegで構築された無料のオープンソースツール。",
+    "feedback": "ご質問がある場合は、GitHubリポジトリにアクセスしてお問い合わせください。"
+  }
+}

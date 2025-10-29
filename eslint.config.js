@@ -9,7 +9,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default [
 	pluginJs.configs.recommended,
 	{
-		ignores: ["dist/**/*"],
+		ignores: ["dist/**/*", ".astro/**/*"],
 	},
 	{
 		files: ["**/*.{ts,tsx}"],

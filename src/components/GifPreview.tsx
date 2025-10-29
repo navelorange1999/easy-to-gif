@@ -10,6 +10,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import {useTranslation} from "react-i18next";
 
 interface GifPreviewProps {
 	gifBlob: Blob;
@@ -25,6 +26,7 @@ export function GifPreview({
 	onReset,
 	conversionOptions,
 }: GifPreviewProps) {
+	const {t} = useTranslation();
 	const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
 	const gifUrl = URL.createObjectURL(gifBlob);
@@ -58,7 +60,7 @@ export function GifPreview({
 	return (
 		<div className="space-y-4">
 			<div className="flex items-center justify-between">
-				<h2 className="text-xl font-semibold">转换结果</h2>
+				<h2 className="text-xl font-semibold">{t("preview.title")}</h2>
 			</div>
 
 			<Card className="overflow-hidden">
@@ -69,7 +71,7 @@ export function GifPreview({
 				>
 					<img
 						src={gifUrl}
-						alt="转换后的 GIF"
+						alt={t("preview.alt")}
 						className="w-full h-auto max-h-96 object-contain"
 					/>
 
@@ -78,7 +80,7 @@ export function GifPreview({
 						<div className="flex items-center gap-2 bg-white/90 px-4 py-2 rounded-lg">
 							<Maximize2 className="h-4 w-4" />
 							<span className="text-sm font-medium">
-								点击预览
+								{t("preview.clickToPreview")}
 							</span>
 						</div>
 					</div>
@@ -88,14 +90,18 @@ export function GifPreview({
 				<CardContent className="p-4 border-t bg-muted/30">
 					<div className="space-y-2">
 						<div className="flex items-center justify-between text-sm">
-							<span className="font-medium">文件大小:</span>
+							<span className="font-medium">
+								{t("preview.fileSize")}:
+							</span>
 							<Badge variant="secondary">
 								{formatFileSize(fileSize)}
 							</Badge>
 						</div>
 						{conversionOptions && (
 							<div className="flex items-center justify-between text-sm">
-								<span className="font-medium">输出尺寸:</span>
+								<span className="font-medium">
+									{t("preview.outputSize")}:
+								</span>
 								<Badge variant="secondary">
 									{conversionOptions.scale}px ×{" "}
 									{Math.round(conversionOptions.scale * 0.75)}
@@ -105,7 +111,9 @@ export function GifPreview({
 						)}
 						{conversionOptions && (
 							<div className="flex items-center justify-between text-sm">
-								<span className="font-medium">帧率:</span>
+								<span className="font-medium">
+									{t("preview.fps")}:
+								</span>
 								<Badge variant="secondary">
 									{conversionOptions.fps} FPS
 								</Badge>
@@ -119,11 +127,11 @@ export function GifPreview({
 			<div className="flex gap-3">
 				<Button onClick={handleDownload} className="flex-1">
 					<Download className="h-4 w-4 mr-2" />
-					下载 GIF
+					{t("preview.downloadGif")}
 				</Button>
 				<Button variant="outline" onClick={onReset}>
 					<RotateCcw className="h-4 w-4 mr-2" />
-					重新转换
+					{t("preview.reconvert")}
 				</Button>
 			</div>
 
@@ -131,13 +139,13 @@ export function GifPreview({
 			<Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
 				<DialogContent className="max-w-4xl max-h-[90vh] p-0">
 					<DialogHeader className="p-6 pb-0">
-						<DialogTitle>GIF 预览</DialogTitle>
+						<DialogTitle>{t("preview.previewTitle")}</DialogTitle>
 					</DialogHeader>
 					<div className="p-6 pt-0">
 						<div className="flex justify-center">
 							<img
 								src={gifUrl}
-								alt="转换后的 GIF 预览"
+								alt={t("preview.alt")}
 								className="max-w-full max-h-[60vh] object-contain rounded-lg shadow-lg"
 								style={{
 									aspectRatio: conversionOptions
@@ -149,10 +157,10 @@ export function GifPreview({
 						<div className="mt-4 flex justify-center gap-3">
 							<Button onClick={handleDownload}>
 								<Download className="h-4 w-4 mr-2" />
-								下载 GIF
+								{t("preview.downloadGif")}
 							</Button>
 							<Button variant="outline" onClick={closePreview}>
-								关闭预览
+								{t("preview.closePreview")}
 							</Button>
 						</div>
 					</div>
@@ -164,11 +172,17 @@ export function GifPreview({
 				<div className="text-blue-500 text-lg">💡</div>
 				<AlertDescription>
 					<div className="space-y-1">
-						<p className="font-medium mb-2">使用提示</p>
+						<p className="font-medium mb-2">
+							{t("preview.tips.title")}
+						</p>
 						<ul className="space-y-1 text-xs">
-							<li>• 点击 GIF 缩略图或预览按钮可查看大图</li>
-							<li>• 右键点击 GIF 可保存到本地</li>
-							<li>• 如果 GIF 太大，可以调整转换参数重新生成</li>
+							{(
+								t("preview.tips.items", {
+									returnObjects: true,
+								}) as string[]
+							).map((item: string, index: number) => (
+								<li key={index}>• {item}</li>
+							))}
 						</ul>
 					</div>
 				</AlertDescription>

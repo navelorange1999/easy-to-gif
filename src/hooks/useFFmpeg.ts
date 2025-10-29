@@ -8,7 +8,7 @@ export function useFFmpeg() {
 	const {initState, setInitState, conversionState, setConversionState} =
 		useAppContext();
 
-	// 使用 useRef 确保 FFmpeg 实例只创建一次
+	// Use useRef to ensure FFmpeg instance is created only once
 	const ffmpegRef = useRef<FFmpeg | null>(null);
 	const ffmpeg = useMemo(() => {
 		if (!ffmpegRef.current) {
@@ -19,11 +19,55 @@ export function useFFmpeg() {
 
 	const initializeFFmpeg = useCallback(async () => {
 		try {
-			// 检查 SharedArrayBuffer 支持
+			// Check SharedArrayBuffer support
 			if (typeof SharedArrayBuffer === "undefined") {
-				throw new Error(
-					"您的浏览器不支持 SharedArrayBuffer，请使用 Chrome 68+ 或 Firefox 79+"
+				const isLocalhost =
+					window.location.hostname === "localhost" ||
+					window.location.hostname === "127.0.0.1";
+				const isHttp = window.location.protocol === "http:";
+
+				console.error(
+					"SharedArrayBuffer is not available. Browser info:",
+					{
+						userAgent: navigator.userAgent,
+						location: window.location.href,
+						protocol: window.location.protocol,
+						isLocalhost,
+						isHttp,
+						headers: {
+							coep: document
+								.querySelector(
+									'meta[http-equiv="Cross-Origin-Embedder-Policy"]'
+								)
+								?.getAttribute("content"),
+							coop: document
+								.querySelector(
+									'meta[http-equiv="Cross-Origin-Opener-Policy"]'
+								)
+								?.getAttribute("content"),
+						},
+					}
 				);
+
+				let errorMessage = "SharedArrayBuffer is not available.";
+
+				if (isLocalhost && isHttp) {
+					errorMessage +=
+						"\n\nFor local development with HTTP, please run Chrome with these flags:\n" +
+						"open -a 'Google Chrome' --args --enable-features=SharedArrayBuffer --disable-web-security\n\n" +
+						"Or use HTTPS by updating astro.config.mjs with https server configuration.";
+				} else if (!isLocalhost) {
+					errorMessage +=
+						"\n\nThis site requires HTTPS for SharedArrayBuffer support.";
+				} else {
+					errorMessage +=
+						"\n\nPlease check:\n" +
+						"1. HTTPS is enabled\n" +
+						"2. Cross-Origin-Embedder-Policy: require-corp header is set\n" +
+						"3. Cross-Origin-Opener-Policy: same-origin header is set";
+				}
+
+				throw new Error(errorMessage);
 			}
 
 			setInitState((prev) => ({
@@ -32,9 +76,9 @@ export function useFFmpeg() {
 				error: null,
 			}));
 
-			console.log("开始尝试加载 FFmpeg 核心文件...");
+			console.log("Starting to load FFmpeg core files...");
 
-			// 首先尝试使用默认配置
+			// First try default configuration
 			try {
 				setInitState((prev) => ({
 					...prev,
@@ -43,11 +87,14 @@ export function useFFmpeg() {
 				}));
 
 				await ffmpeg.load();
-				console.log("FFmpeg 默认加载成功！");
+				console.log("FFmpeg loaded successfully with default config!");
 			} catch (defaultError) {
-				console.warn("默认加载失败，尝试 CDN 源:", defaultError);
+				console.warn(
+					"Default loading failed, trying CDN sources:",
+					defaultError
+				);
 
-				// 如果默认加载失败，尝试 CDN 源
+				// If default loading fails, try CDN sources
 				const cdnSources = [
 					"https://unpkg.com/@ffmpeg/core@0.12.5/dist/umd",
 					"https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.5/dist/umd",
@@ -59,7 +106,7 @@ export function useFFmpeg() {
 
 				for (const baseURL of cdnSources) {
 					try {
-						console.log(`尝试从 ${baseURL} 加载...`);
+						console.log(`Trying to load from ${baseURL}...`);
 
 						const coreURL = await toBlobURL(
 							`${baseURL}/ffmpeg-core.js`,
@@ -71,25 +118,25 @@ export function useFFmpeg() {
 						);
 
 						console.log(
-							"核心文件 URL 生成成功，开始加载 FFmpeg..."
+							"Core file URLs generated successfully, starting FFmpeg load..."
 						);
 						await ffmpeg.load({
 							coreURL,
 							wasmURL,
 						});
 
-						console.log("FFmpeg 加载成功！");
+						console.log("FFmpeg loaded successfully!");
 						loadSuccess = true;
 						break;
 					} catch (error) {
-						console.warn(`从 ${baseURL} 加载失败:`, error);
+						console.warn(`Failed to load from ${baseURL}:`, error);
 						lastError = error as Error;
 						continue;
 					}
 				}
 
 				if (!loadSuccess) {
-					throw lastError || new Error("所有加载方式都失败");
+					throw lastError || new Error("All loading methods failed");
 				}
 			}
 
@@ -100,14 +147,17 @@ export function useFFmpeg() {
 				error: null,
 			}));
 
-			console.log("FFmpeg 初始化完成，loaded 状态:", ffmpeg.loaded);
+			console.log(
+				"FFmpeg initialization completed, loaded state:",
+				ffmpeg.loaded
+			);
 		} catch (error) {
 			console.error("FFmpeg initialization failed:", error);
 			setInitState((prev) => ({
 				...prev,
 				isLoaded: false,
 				isLoading: false,
-				error: "FFmpeg 初始化失败，请检查网络连接或刷新页面重试",
+				error: "FFmpeg initialization failed, please check network connection or refresh page to retry",
 			}));
 		}
 	}, [setInitState, ffmpeg]);
@@ -115,74 +165,82 @@ export function useFFmpeg() {
 	const convertToGif = useCallback(
 		async (videoFile: File, options: ConversionOptions): Promise<Blob> => {
 			if (!initState.isLoaded) {
-				throw new Error("FFmpeg 未初始化");
+				throw new Error("FFmpeg not initialized");
 			}
 
-			// 确保 FFmpeg 实例已加载
+			// Ensure FFmpeg instance is loaded
 			if (!ffmpeg.loaded) {
-				console.log("FFmpeg 实例未加载，重新加载...");
+				console.log("FFmpeg instance not loaded, reloading...");
 				try {
 					await ffmpeg.load();
-					console.log("FFmpeg 重新加载成功");
+					console.log("FFmpeg reloaded successfully");
 				} catch (loadError) {
-					console.error("FFmpeg 重新加载失败:", loadError);
-					throw new Error("FFmpeg 加载失败，请刷新页面重试");
+					console.error("FFmpeg reload failed:", loadError);
+					throw new Error(
+						"FFmpeg loading failed, please refresh page to retry"
+					);
 				}
 			}
 
-			// 立即重置转换状态
+			// Immediately reset conversion state
 			setConversionState({
 				isConverting: true,
 				stage: "converting",
 				progress: 0,
-				message: "开始转换...",
+				message: "Starting conversion...",
 				error: null,
 			});
 
-			console.log("开始转换，FFmpeg 状态:", {
+			console.log("Starting conversion, FFmpeg state:", {
 				loaded: ffmpeg.loaded,
 				isLoaded: initState.isLoaded,
 			});
 
 			try {
-				// 清理所有进度监听器
+				// Clear all progress listeners
 				ffmpeg.off("progress", () => {});
 
-				// 写入输入文件
+				// Write input file
 				setConversionState((prev) => ({
 					...prev,
-					message: "准备文件...",
+					message: "Preparing files...",
 					progress: 10,
 				}));
 				await ffmpeg.writeFile("input.mp4", await fetchFile(videoFile));
 
-				// 生成调色板（两阶段优化）
+				// Generate palette (two-stage optimization)
 				setConversionState((prev) => ({
 					...prev,
-					message: "生成调色板...",
+					message: "Generating palette...",
 					progress: 20,
 				}));
 
-				// 监听第一个命令的进度（调色板生成）
+				// Listen to first command progress (palette generation)
 				const paletteProgressHandler = ({
 					progress,
 				}: {
 					progress: number;
 				}) => {
-					console.log("调色板生成进度原始值:", progress);
-					// 确保 progress 是 0-1 之间的值
+					console.log(
+						"Palette generation progress raw value:",
+						progress
+					);
+					// Ensure progress is between 0-1
 					const normalizedProgress = Math.min(
 						Math.max(progress, 0),
 						1
 					);
-					// 调色板生成阶段：20% - 40%
+					// Palette generation stage: 20% - 40%
 					const paletteProgress =
 						20 + Math.round(normalizedProgress * 20);
-					console.log("调色板生成进度计算后:", paletteProgress);
+					console.log(
+						"Palette generation progress calculated:",
+						paletteProgress
+					);
 					setConversionState((prev) => ({
 						...prev,
 						progress: paletteProgress,
-						message: `生成调色板... ${Math.min(Math.max(paletteProgress, 0), 100)}%`,
+						message: `Generating palette... ${Math.min(Math.max(paletteProgress, 0), 100)}%`,
 					}));
 				};
 
@@ -196,32 +254,35 @@ export function useFFmpeg() {
 					"palette.png",
 				]);
 
-				// 清理第一个命令的进度监听器
+				// Clear first command progress listener
 				ffmpeg.off("progress", paletteProgressHandler);
 
-				// 使用调色板生成 GIF
+				// Generate GIF using palette
 				setConversionState((prev) => ({
 					...prev,
-					message: "生成 GIF...",
+					message: "Generating GIF...",
 					progress: 40,
 				}));
 
-				// 监听第二个命令的进度（GIF 生成）
+				// Listen to second command progress (GIF generation)
 				const gifProgressHandler = ({progress}: {progress: number}) => {
-					console.log("GIF 生成进度原始值:", progress);
-					// 确保 progress 是 0-1 之间的值
+					console.log("GIF generation progress raw value:", progress);
+					// Ensure progress is between 0-1
 					const normalizedProgress = Math.min(
 						Math.max(progress, 0),
 						1
 					);
-					// GIF 生成阶段：40% - 90%
+					// GIF generation stage: 40% - 90%
 					const gifProgress =
 						40 + Math.round(normalizedProgress * 50);
-					console.log("GIF 生成进度计算后:", gifProgress);
+					console.log(
+						"GIF generation progress calculated:",
+						gifProgress
+					);
 					setConversionState((prev) => ({
 						...prev,
 						progress: gifProgress,
-						message: `生成 GIF... ${Math.min(Math.max(gifProgress, 0), 100)}%`,
+						message: `Generating GIF... ${Math.min(Math.max(gifProgress, 0), 100)}%`,
 					}));
 				};
 
@@ -237,29 +298,29 @@ export function useFFmpeg() {
 					"output.gif",
 				]);
 
-				// 清理第二个命令的进度监听器
+				// Clear second command progress listener
 				ffmpeg.off("progress", gifProgressHandler);
 
-				// 读取结果
+				// Read result
 				setConversionState((prev) => ({
 					...prev,
-					message: "处理结果...",
+					message: "Processing result...",
 					progress: 95,
 				}));
 				const data = await ffmpeg.readFile("output.gif");
-				// 使用类型断言来处理 FFmpeg 的数据类型
+				// Use type assertion to handle FFmpeg data types
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const blob = new Blob([data as any], {
 					type: "image/gif",
 				});
 
-				// 清理文件
+				// Clean up files
 				try {
 					await ffmpeg.deleteFile("input.mp4");
 					await ffmpeg.deleteFile("palette.png");
 					await ffmpeg.deleteFile("output.gif");
 				} catch (cleanupError) {
-					console.warn("清理文件失败:", cleanupError);
+					console.warn("File cleanup failed:", cleanupError);
 				}
 
 				setConversionState((prev) => ({
@@ -267,27 +328,27 @@ export function useFFmpeg() {
 					isConverting: false,
 					stage: "completed",
 					progress: 100,
-					message: "转换完成",
+					message: "Conversion completed",
 					error: null,
 				}));
 
-				// 清理所有进度监听器
+				// Clear all progress listeners
 				ffmpeg.off("progress", () => {});
 
 				return blob;
 			} catch (err) {
 				const errorMessage =
-					err instanceof Error ? err.message : "转换失败";
+					err instanceof Error ? err.message : "Conversion failed";
 				setConversionState((prev) => ({
 					...prev,
 					isConverting: false,
 					stage: "error",
 					progress: 0,
-					message: "转换失败",
+					message: "Conversion failed",
 					error: errorMessage,
 				}));
 
-				// 清理所有进度监听器
+				// Clear all progress listeners
 				ffmpeg.off("progress", () => {});
 
 				throw err;
