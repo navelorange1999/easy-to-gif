@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free"
+    "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free",
+    "keywords": "video to gif,online converter,free tool,video processing,FFmpeg"
   },
   "hero": {
     "title": "Easy to GIF",
@@ -129,7 +130,7 @@
     "step2": "Adjust conversion parameters",
     "step3": "Click start conversion",
     "step4": "Download generated GIF",
-    "copyright": "© 2024 Easy to GIF. Free open source tool, built with FFmpeg.",
+    "copyright": "© 2025 Easy to GIF. Free open source tool, built with FFmpeg.",
     "feedback": "If you have any questions, please visit our GitHub repository for feedback."
   }
 }

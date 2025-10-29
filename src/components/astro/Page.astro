@@ -5,9 +5,10 @@ import Footer from './Footer.astro';
 import Features from './Features.astro';
 import ConverterApp from '../ConverterApp';
 import { useTranslations } from '../../i18n/utils';
+import { LanguageCode } from '../../i18n/constants';
 
 export interface Props {
-  lang: 'en' | 'zh' | 'ja';
+  lang: LanguageCode;
 }
 
 const { lang } = Astro.props;
@@ -20,8 +21,8 @@ const description: string = t('app.description');
   <div class="min-h-screen bg-background">
     <Header lang={lang} />
 
-    <main class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto space-y-8 flex flex-col gap-8">
+    <main class="container py-8 sm:px-8 px-4">
+      <div class="max-w-4xl m-auto space-y-8 flex flex-col gap-8">
         <!-- Hero Section - Desktop Only -->
         <div class="hidden md:block text-center space-y-6">
           <div class="space-y-4">

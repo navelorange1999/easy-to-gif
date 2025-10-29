@@ -1,12 +1,13 @@
 ---
 import { useTranslations } from '../../i18n/utils';
+import { LanguageCode } from '../../i18n/constants';
 
 interface Props {
-  lang: string;
+  lang: LanguageCode;
 }
 
 const { lang } = Astro.props;
-const t = useTranslations(lang as 'en' | 'zh');
+const t = useTranslations(lang);
 ---
 
 <div class="grid gap-4 md:grid-cols-3 max-w-4xl mx-auto">

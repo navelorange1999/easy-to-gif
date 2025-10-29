@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费"
+    "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费",
+    "keywords": "视频转GIF,在线转换,免费工具,视频处理,FFmpeg"
   },
   "hero": {
     "title": "Easy to GIF",
@@ -129,7 +130,7 @@
     "step2": "调整转换参数",
     "step3": "点击开始转换",
     "step4": "下载生成的 GIF",
-    "copyright": "© 2024 Easy to GIF. 免费开源工具，基于 FFmpeg 构建。",
+    "copyright": "© 2025 Easy to GIF. 免费开源工具，基于 FFmpeg 构建。",
     "feedback": "如有问题，请访问我们的 GitHub 仓库反馈。"
   }
 }

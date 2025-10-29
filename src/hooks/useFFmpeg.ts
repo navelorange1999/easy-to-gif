@@ -21,19 +21,12 @@ export function useFFmpeg() {
 		try {
 			// Check SharedArrayBuffer support
 			if (typeof SharedArrayBuffer === "undefined") {
-				const isLocalhost =
-					window.location.hostname === "localhost" ||
-					window.location.hostname === "127.0.0.1";
-				const isHttp = window.location.protocol === "http:";
-
 				console.error(
 					"SharedArrayBuffer is not available. Browser info:",
 					{
 						userAgent: navigator.userAgent,
 						location: window.location.href,
 						protocol: window.location.protocol,
-						isLocalhost,
-						isHttp,
 						headers: {
 							coep: document
 								.querySelector(
@@ -50,22 +43,6 @@ export function useFFmpeg() {
 				);
 
 				let errorMessage = "SharedArrayBuffer is not available.";
-
-				if (isLocalhost && isHttp) {
-					errorMessage +=
-						"\n\nFor local development with HTTP, please run Chrome with these flags:\n" +
-						"open -a 'Google Chrome' --args --enable-features=SharedArrayBuffer --disable-web-security\n\n" +
-						"Or use HTTPS by updating astro.config.mjs with https server configuration.";
-				} else if (!isLocalhost) {
-					errorMessage +=
-						"\n\nThis site requires HTTPS for SharedArrayBuffer support.";
-				} else {
-					errorMessage +=
-						"\n\nPlease check:\n" +
-						"1. HTTPS is enabled\n" +
-						"2. Cross-Origin-Embedder-Policy: require-corp header is set\n" +
-						"3. Cross-Origin-Opener-Policy: same-origin header is set";
-				}
 
 				throw new Error(errorMessage);
 			}

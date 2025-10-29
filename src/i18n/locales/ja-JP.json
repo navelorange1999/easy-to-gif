@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料"
+    "description": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料",
+    "keywords": "動画からGIF,オンライン変換,無料ツール,動画処理,FFmpeg"
   },
   "hero": {
     "title": "Easy to GIF",
@@ -129,7 +130,7 @@
     "step2": "変換パラメータを調整",
     "step3": "変換を開始をクリック",
     "step4": "生成されたGIFをダウンロード",
-    "copyright": "© 2024 Easy to GIF. FFmpegで構築された無料のオープンソースツール。",
+    "copyright": "© 2025 Easy to GIF. FFmpegで構築された無料のオープンソースツール。",
     "feedback": "ご質問がある場合は、GitHubリポジトリにアクセスしてお問い合わせください。"
   }
 }
