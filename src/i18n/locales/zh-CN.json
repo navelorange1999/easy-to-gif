@@ -1,12 +1,12 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费",
-    "keywords": "视频转GIF,在线转换,免费工具,视频处理,FFmpeg"
+    "description": "免费在线视频转 GIF 工具，支持 MP4、MOV、WebM 等格式。基于 FFmpeg 在浏览器本地转换，无需上传文件。",
+    "keywords": "视频转GIF,GIF转换器,MP4转GIF,MOV转GIF,WebM转GIF,在线GIF制作,FFmpeg WASM"
   },
   "hero": {
     "title": "Easy to GIF",
-    "subtitle": "免费在线视频转GIF工具，支持多种格式，快速转换，完全免费"
+    "subtitle": "免费将 MP4、MOV、WebM 等视频转成 GIF，浏览器本地处理，无需上传。"
   },
   "header": {
     "github": "GitHub",

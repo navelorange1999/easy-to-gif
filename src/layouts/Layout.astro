@@ -1,5 +1,5 @@
 ---
-import { LanguageCode, CODE_TO_I18N_MAP } from '../i18n/constants';
+import { LanguageCode, CODE_TO_I18N_MAP, LANGUAGES } from '../i18n/constants';
 import { useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -12,6 +12,13 @@ const { title, description, lang } = Astro.props;
 const currentLang = CODE_TO_I18N_MAP[lang] || CODE_TO_I18N_MAP['en'];
 const t = useTranslations(lang);
 const keywords = t('app.keywords');
+const siteUrl = Astro.site ?? new URL('https://easy2gif.chankay.com');
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const ogLocale = currentLang.replace('-', '_');
+const alternateLinks = LANGUAGES.map((language) => ({
+	href: new URL(language.path, siteUrl).toString(),
+	hrefLang: language.i18nCode,
+}));
 ---
 
 <!DOCTYPE html>
@@ -26,17 +33,29 @@ const keywords = t('app.keywords');
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <link rel="canonical" href={canonicalUrl} />
+    {alternateLinks.map((link) => (
+      <link rel="alternate" hreflang={link.hrefLang} href={link.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl).toString()} />
     
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={currentLang} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Easy to GIF" />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={canonicalUrl} />
     
     <!-- Security Headers for SharedArrayBuffer -->
     <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" />
@@ -57,4 +76,3 @@ const keywords = t('app.keywords');
 <style is:global>
   @import '../index.css';
 </style>
-
