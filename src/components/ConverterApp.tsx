@@ -96,6 +96,12 @@ function ConverterContent({lang}: ConverterAppProps) {
 		});
 	}, []);
 
+	const hasActiveWorkspace =
+		Boolean(videoInfo) ||
+		Boolean(gifBlob) ||
+		isConverting ||
+		Boolean(error);
+
 	return (
 		<>
 			{/* Initialization progress */}
@@ -160,55 +166,63 @@ function ConverterContent({lang}: ConverterAppProps) {
 			)}
 
 			{/* Main content area */}
-			{initState.isLoaded && (
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-					{/* Left side: upload and settings */}
-					<div className="space-y-6">
+			{initState.isLoaded &&
+				(hasActiveWorkspace ? (
+					<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+						{/* Left side: upload and settings */}
+						<div className="space-y-6">
+							<VideoUploader
+								onVideoUpload={handleVideoUpload}
+								disabled={isConverting}
+							/>
+
+							{videoInfo && (
+								<ConversionSettings
+									videoInfo={videoInfo}
+									options={conversionOptions}
+									onOptionsChange={setConversionOptions}
+									onConvert={handleConvert}
+									onReset={handleResetSettings}
+									disabled={isConverting}
+								/>
+							)}
+						</div>
+
+						{/* Right side: progress and preview */}
+						<div className="space-y-6">
+							{isConverting && <ProgressBar />}
+
+							{error && (
+								<Alert variant="destructive">
+									<AlertDescription>
+										<h4 className="font-semibold mb-2">
+											{t("conversion.failed")}
+										</h4>
+										<p className="text-sm">{error}</p>
+									</AlertDescription>
+								</Alert>
+							)}
+
+							{gifBlob && (
+								<GifPreview
+									gifBlob={gifBlob}
+									onReset={handleResetSettings}
+									conversionOptions={{
+										scale: conversionOptions.scale,
+										fps: conversionOptions.fps,
+									}}
+								/>
+							)}
+						</div>
+					</div>
+				) : (
+					<div className="w-full lg:w-[calc(50%-1rem)]">
 						<VideoUploader
 							onVideoUpload={handleVideoUpload}
 							disabled={isConverting}
 						/>
-
-						{videoInfo && (
-							<ConversionSettings
-								videoInfo={videoInfo}
-								options={conversionOptions}
-								onOptionsChange={setConversionOptions}
-								onConvert={handleConvert}
-								onReset={handleResetSettings}
-								disabled={isConverting}
-							/>
-						)}
 					</div>
-
-					{/* Right side: progress and preview */}
-					<div className="space-y-6">
-						{isConverting && <ProgressBar />}
-
-						{error && (
-							<Alert variant="destructive">
-								<AlertDescription>
-									<h4 className="font-semibold mb-2">
-										{t("conversion.failed")}
-									</h4>
-									<p className="text-sm">{error}</p>
-								</AlertDescription>
-							</Alert>
-						)}
-
-						{gifBlob && (
-							<GifPreview
-								gifBlob={gifBlob}
-								onReset={handleResetSettings}
-								conversionOptions={{
-									scale: conversionOptions.scale,
-									fps: conversionOptions.fps,
-								}}
-							/>
-						)}
-					</div>
-				</div>
-			)}
+				))}
 
 			<Toaster />
 		</>

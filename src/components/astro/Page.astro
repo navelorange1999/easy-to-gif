@@ -1,9 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Header from './Header.astro';
 import Footer from './Footer.astro';
-import Features from './Features.astro';
 import ConverterApp from '../ConverterApp';
+import { LanguageSwitcher } from '../LanguageSwitcher';
+import { ThemeToggle } from '../ThemeToggle';
 import { useTranslations } from '../../i18n/utils';
 import { LanguageCode } from '../../i18n/constants';
 
@@ -18,30 +18,36 @@ const description: string = t('app.description');
 ---
 
 <Layout title={title} description={description} lang={lang}>
-  <div class="min-h-screen bg-background">
-    <Header lang={lang} />
+  <div class="flex min-h-full flex-col bg-background">
+    <main class="flex-1 py-8 sm:py-10">
+      <div class="site-page-container flex min-h-full flex-col gap-8">
+        <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div class="space-y-4 text-center md:max-w-2xl md:text-left">
+              <h1 class="text-4xl font-bold tracking-tight text-foreground">
+                {t('hero.title')}
+              </h1>
+              <p class="text-xl text-muted-foreground md:max-w-2xl">
+                {t('hero.subtitle')}
+              </p>
+            </div>
 
-    <main class="container py-8 sm:px-8 px-4">
-      <div class="max-w-4xl m-auto space-y-8 flex flex-col gap-8">
-        <!-- Hero Section - Desktop Only -->
-        <div class="hidden md:block text-center space-y-6">
-          <div class="space-y-4">
-            <h1 class="text-4xl font-bold tracking-tight text-foreground">
-              {t('hero.title')}
-            </h1>
-            <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t('hero.subtitle')}
-            </p>
+            <div class="self-center md:self-start md:pt-2">
+              <div class="flex flex-wrap items-center justify-center gap-3 rounded-full border border-border/60 bg-background/80 px-3 py-2 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <ThemeToggle client:only="react" />
+                <LanguageSwitcher client:only="react" lang={lang} />
+              </div>
+            </div>
           </div>
-
-          <Features lang={lang} />
         </div>
 
         <!-- Converter App -->
         <ConverterApp client:only="react" lang={lang} />
+
+        <div class="mt-auto">
+          <Footer lang={lang} />
+        </div>
       </div>
     </main>
-
-    <Footer lang={lang} />
   </div>
 </Layout>

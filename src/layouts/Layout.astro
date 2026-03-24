@@ -12,6 +12,8 @@ const { title, description, lang } = Astro.props;
 const currentLang = CODE_TO_I18N_MAP[lang] || CODE_TO_I18N_MAP['en'];
 const t = useTranslations(lang);
 const keywords = t('app.keywords');
+const siteName = t('app.title');
+const repoUrl = `https://github.com/${import.meta.env.PUBLIC_GITHUB_OWNER || 'navelorange1999'}/easy-to-gif`;
 const siteUrl = Astro.site ?? new URL('https://easy2gif.chankay.com');
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const ogLocale = currentLang.replace('-', '_');
@@ -26,7 +28,10 @@ const alternateLinks = LANGUAGES.map((language) => ({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- SEO Meta Tags -->
@@ -69,10 +74,48 @@ const alternateLinks = LANGUAGES.map((language) => ({
     </script>
   </head>
   <body>
-    <slot />
+    <chankay-site-shell
+      position="header"
+      site-name={siteName}
+      repo-url={repoUrl}
+    ></chankay-site-shell>
+    <div class="site-page-slot">
+      <slot />
+    </div>
+    <chankay-site-shell position="footer"></chankay-site-shell>
+    <script>
+      import "@chankay/site-shell/register";
+    </script>
   </body>
 </html>
 
 <style is:global>
   @import '../index.css';
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body > chankay-site-shell {
+    display: block;
+  }
+
+  .site-page-slot {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .site-page-container {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+  }
 </style>
