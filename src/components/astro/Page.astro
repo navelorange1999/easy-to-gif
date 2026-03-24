@@ -18,22 +18,22 @@ const description: string = t('app.description');
 ---
 
 <Layout title={title} description={description} lang={lang}>
-  <div class="flex min-h-full flex-col bg-background">
-    <main class="flex-1 py-8 sm:py-10">
+  <div class="site-shell-main flex min-h-full flex-col">
+    <main class="site-shell-main-stage flex-1 py-8 sm:py-10">
       <div class="site-page-container flex min-h-full flex-col gap-8">
         <div class="flex flex-col gap-8">
-          <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div class="site-shell-hero flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div class="space-y-4 text-center md:max-w-2xl md:text-left">
-              <h1 class="text-4xl font-bold tracking-tight text-foreground">
+              <h1 class="site-shell-section-title text-4xl font-bold tracking-tight">
                 {t('hero.title')}
               </h1>
-              <p class="text-xl text-muted-foreground md:max-w-2xl">
+              <p class="site-shell-section-subtitle text-xl md:max-w-2xl">
                 {t('hero.subtitle')}
               </p>
             </div>
 
             <div class="self-center md:self-start md:pt-2">
-              <div class="flex flex-wrap items-center justify-center gap-3 rounded-full border border-border/60 bg-background/80 px-3 py-2 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/60">
+              <div class="site-shell-toolbar flex flex-wrap items-center justify-center gap-3 rounded-full px-3 py-2 backdrop-blur">
                 <ThemeToggle client:only="react" />
                 <LanguageSwitcher client:only="react" lang={lang} />
               </div>
@@ -51,3 +51,44 @@ const description: string = t('app.description');
     </main>
   </div>
 </Layout>
+
+<style>
+  .site-shell-main {
+    position: relative;
+    background:
+      radial-gradient(
+        circle at top right,
+        color-mix(in oklch, var(--site-shell-accent) 65%, transparent) 0%,
+        transparent 32rem
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in oklch, var(--site-shell-background) 88%, white) 0%,
+        var(--site-shell-background) 100%
+      );
+    color: var(--site-shell-foreground);
+  }
+
+  .site-shell-hero {
+    border: 1px solid color-mix(in oklch, var(--site-shell-border) 88%, transparent);
+    border-radius: calc(var(--site-shell-radius) * 2);
+    background: color-mix(in oklch, var(--site-shell-card) 86%, transparent);
+    box-shadow: var(--site-shell-shadow);
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    backdrop-filter: blur(10px);
+  }
+
+  .site-shell-toolbar {
+    border: 1px solid var(--site-shell-border);
+    background: color-mix(in oklch, var(--site-shell-card) 88%, transparent);
+    box-shadow: var(--site-shell-shadow);
+  }
+
+  .site-shell-section-title {
+    color: var(--site-shell-foreground);
+  }
+
+  .site-shell-section-subtitle {
+    color: var(--site-shell-muted-foreground);
+  }
+</style>
