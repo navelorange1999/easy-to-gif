@@ -176,17 +176,18 @@ export function VideoUploader({onVideoUpload, disabled}: VideoUploaderProps) {
 					onDragOver={handleDragOver}
 					onDragLeave={handleDragLeave}
 				>
-					<CardContent className="p-8 text-center">
-						<Upload className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-						<p className="text-lg font-medium mb-2">
+					<CardContent className="flex min-h-[16rem] flex-col justify-center p-6 text-center md:min-h-[18rem] md:p-8">
+						<Upload className="mx-auto mb-4 h-12 w-12 text-muted-foreground md:h-14 md:w-14" />
+						<p className="mb-3 text-xl font-medium">
 							{t("upload.dragText")}
 						</p>
-						<p className="text-sm text-muted-foreground mb-4">
+						<p className="mb-6 text-sm text-muted-foreground md:text-base">
 							{t("upload.supportedFormats")}
 						</p>
 						<Button
 							onClick={() => fileInputRef.current?.click()}
 							disabled={disabled}
+							size="lg"
 						>
 							{t("upload.selectFile")}
 						</Button>

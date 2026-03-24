@@ -1,12 +1,12 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料",
-    "keywords": "動画からGIF,オンライン変換,無料ツール,動画処理,FFmpeg"
+    "description": "MP4、MOV、WebM などの動画を無料で GIF に変換できるオンラインツール。FFmpeg によるブラウザ内処理で、アップロードは不要です。",
+    "keywords": "動画 GIF 変換,GIF 変換ツール,MP4 GIF,MOV GIF,WebM GIF,オンライン GIF,FFmpeg WASM"
   },
   "hero": {
     "title": "Easy to GIF",
-    "subtitle": "無料オンライン動画からGIF変換ツール、複数形式対応、高速変換、完全無料"
+    "subtitle": "MP4、MOV、WebM などの動画を、ブラウザ上で無料かつ簡単に GIF へ変換できます。"
   },
   "header": {
     "github": "GitHub",

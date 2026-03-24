@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@chankay/brand-assets':
+        specifier: 1.0.0
+        version: 1.0.0
+      '@chankay/site-shell':
+        specifier: 2.0.0
+        version: 2.0.0
       '@ffmpeg/ffmpeg':
         specifier: ^0.12.10
         version: 0.12.15
@@ -309,6 +315,12 @@ packages:
   '@capsizecss/unpack@3.0.0':
     resolution: {integrity: sha512-+ntATQe1AlL7nTOYjwjj6w3299CgRot48wL761TUGYpYgAou3AaONZazp0PKZyCyWhudWsjhq1nvRHOvbMzhTA==}
     engines: {node: '>=18'}
+
+  '@chankay/brand-assets@1.0.0':
+    resolution: {integrity: sha512-F9f+hqU5ZL73PuC8G54rk77ufeB2SAbU/kwBsVt7kegiUhOsdMogGE/LRj0Ws2wQUhnRTDKintKQgM196xEm4Q==}
+
+  '@chankay/site-shell@2.0.0':
+    resolution: {integrity: sha512-SYwAdVw4OCrOUMxSyThwePzpC/USnUeBHf4cMTI28Oxb/GmsL7aQFHTW7uZNzYS+UtabzHAX/lTiT1Gxvef9zw==}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
@@ -5190,6 +5202,10 @@ snapshots:
   '@capsizecss/unpack@3.0.0':
     dependencies:
       fontkit: 2.0.4
+
+  '@chankay/brand-assets@1.0.0': {}
+
+  '@chankay/site-shell@2.0.0': {}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     dependencies:

@@ -10,8 +10,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<footer class="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-16">
-  <div class="container py-8 sm:px-8 px-4">
+<section class="mt-4">
+  <div class="py-2">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Features -->
       <div class="rounded-lg border bg-card text-card-foreground">
@@ -93,18 +93,5 @@ const t = useTranslations(lang);
         </div>
       </div>
     </div>
-
-    <hr class="my-8 border-t border-border" />
-    
-    <div class="text-center text-sm text-muted-foreground">
-      <div class="flex items-center justify-center gap-1 mb-2">
-        <span>{t('header.madeWith')}</span>
-        🌟
-        <span>{t('header.forCreators')}</span>
-      </div>
-      <p>{t('footer.copyright')}</p>
-      <p class="mt-1">{t('footer.feedback')}</p>
-    </div>
   </div>
-</footer>
-
+</section>

@@ -1,12 +1,12 @@
 {
   "app": {
     "title": "Easy to GIF",
-    "description": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free",
-    "keywords": "video to gif,online converter,free tool,video processing,FFmpeg"
+    "description": "Convert MP4, MOV, WebM, and other videos to GIF online for free. Fast browser-based conversion with FFmpeg and no file uploads.",
+    "keywords": "video to gif,gif converter,mp4 to gif,mov to gif,webm to gif,online gif maker,ffmpeg wasm"
   },
   "hero": {
     "title": "Easy to GIF",
-    "subtitle": "Free online video to GIF converter, supports multiple formats, fast conversion, completely free"
+    "subtitle": "Convert MP4, MOV, WebM, and other videos to GIF online for free, right in your browser."
   },
   "header": {
     "github": "GitHub",
