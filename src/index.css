@@ -80,6 +80,7 @@
 		--site-shell-accent: oklch(0.21 0.01 95.42);
 		--site-shell-accent-foreground: oklch(0.97 0.01 98.88);
 		--site-shell-muted-foreground: oklch(0.77 0.02 99.07);
+		--site-shell-brand-logo-url: url("/favicon/website-logo-dark.svg");
 	}
 }
 
