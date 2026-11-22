@@ -230,6 +230,14 @@ function ConverterContent({lang}: ConverterAppProps) {
 }
 
 export default function ConverterApp({lang}: ConverterAppProps) {
+	const content = (
+		<AppProvider>
+			<ConverterContent lang={lang} />
+		</AppProvider>
+	);
+
+	if (import.meta.env.ASSETS_PREFIX) return content;
+
 	return (
 		<ThemeProvider
 			attribute="class"
@@ -237,9 +245,7 @@ export default function ConverterApp({lang}: ConverterAppProps) {
 			enableSystem
 			disableTransitionOnChange
 		>
-			<AppProvider>
-				<ConverterContent lang={lang} />
-			</AppProvider>
+			{content}
 		</ThemeProvider>
 	);
 }

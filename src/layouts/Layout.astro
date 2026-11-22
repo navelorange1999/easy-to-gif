@@ -1,6 +1,7 @@
 ---
-import { LanguageCode, CODE_TO_I18N_MAP, LANGUAGES } from '../i18n/constants';
+import { type LanguageCode, CODE_TO_I18N_MAP, CODE_TO_PATH_MAP, LANGUAGES } from '../i18n/constants';
 import { useTranslations } from '../i18n/utils';
+import LegacyHead from './LegacyHead.astro';
 
 interface Props {
   title: string;
@@ -15,7 +16,9 @@ const keywords = t('app.keywords');
 const siteName = t('app.title');
 const repoUrl = `https://github.com/${import.meta.env.PUBLIC_GITHUB_OWNER || 'navelorange1999'}/easy-to-gif`;
 const siteUrl = Astro.site ?? new URL('https://easy2gif.chankay.com');
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+const assetBase = import.meta.env.ASSETS_PREFIX ?? '';
+const isDemo = Boolean(assetBase);
+const canonicalUrl = new URL(CODE_TO_PATH_MAP[lang], siteUrl).toString();
 const ogLocale = currentLang.replace('-', '_');
 const alternateLinks = LANGUAGES.map((language) => ({
 	href: new URL(language.path, siteUrl).toString(),
@@ -28,10 +31,11 @@ const alternateLinks = LANGUAGES.map((language) => ({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    {isDemo ? <meta name="chankay-shell" content="v1" /> : <LegacyHead />}
+    <link rel="icon" href={`${assetBase}/favicon/favicon.ico`} sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href={`${assetBase}/favicon/favicon-32x32.png`} />
+    <link rel="icon" type="image/png" sizes="16x16" href={`${assetBase}/favicon/favicon-16x16.png`} />
+    <link rel="apple-touch-icon" sizes="180x180" href={`${assetBase}/favicon/apple-touch-icon.png`} />
     <meta name="generator" content={Astro.generator} />
     
     <!-- SEO Meta Tags -->
@@ -46,7 +50,7 @@ const alternateLinks = LANGUAGES.map((language) => ({
     {alternateLinks.map((link) => (
       <link rel="alternate" hreflang={link.hrefLang} href={link.href} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={new URL('/', siteUrl).toString()} />
+    <link rel="alternate" hreflang="x-default" href={new URL(CODE_TO_PATH_MAP.en, siteUrl).toString()} />
     
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -61,35 +65,21 @@ const alternateLinks = LANGUAGES.map((language) => ({
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:url" content={canonicalUrl} />
-    
-    <!-- Security Headers for SharedArrayBuffer -->
-    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" />
-    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4138695723004114"
-     crossorigin="anonymous"></script>
-
-    <!-- Theme Script -->
-    <script>
-      const theme = localStorage.getItem('theme') || 
-        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-    </script>
   </head>
   <body>
-    <chankay-site-shell
-      position="header"
-      site-name={siteName}
-      repo-url={repoUrl}
-    ></chankay-site-shell>
+    {isDemo ? (
+      <div data-shell-slot="header"></div>
+    ) : (
+      <chankay-site-shell position="header" site-name={siteName} repo-url={repoUrl}></chankay-site-shell>
+    )}
     <div class="site-page-slot">
       <slot />
     </div>
-    <chankay-site-shell position="footer"></chankay-site-shell>
-    <script>
-      import "@chankay/site-shell/register";
-    </script>
+    {isDemo ? (
+      <div data-shell-slot="footer"></div>
+    ) : (
+      <chankay-site-shell position="footer"></chankay-site-shell>
+    )}
   </body>
 </html>
 
@@ -110,6 +100,12 @@ const alternateLinks = LANGUAGES.map((language) => ({
 
   body > chankay-site-shell {
     display: block;
+  }
+
+  body > [data-shell-slot="header"] {
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .site-page-slot {

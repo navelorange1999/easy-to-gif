@@ -9,27 +9,29 @@ export interface LanguageConfig {
 	path: string;
 }
 
+const pageBase = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 export const LANGUAGES: LanguageConfig[] = [
 	{
 		code: "en",
 		i18nCode: "en-US",
 		label: "English",
 		flag: "🇺🇸",
-		path: "/",
+		path: `${pageBase}/`,
 	},
 	{
 		code: "zh",
 		i18nCode: "zh-CN",
 		label: "中文",
 		flag: "🇨🇳",
-		path: "/zh/",
+		path: `${pageBase}/zh/`,
 	},
 	{
 		code: "ja",
 		i18nCode: "ja-JP",
 		label: "日本語",
 		flag: "🇯🇵",
-		path: "/ja/",
+		path: `${pageBase}/ja/`,
 	},
 ];
 

@@ -5,7 +5,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import {LANGUAGES, CODE_TO_PATH_MAP, LanguageCode} from "@/i18n/constants";
+import {LANGUAGES, type LanguageCode} from "@/i18n/constants";
 
 interface LanguageSwitcherProps {
 	lang: LanguageCode;
@@ -13,9 +13,8 @@ interface LanguageSwitcherProps {
 
 export function LanguageSwitcher({lang}: LanguageSwitcherProps) {
 	const handleLanguageChange = (value: string) => {
-		// Redirect to the corresponding page based on the selected language
-		const path = CODE_TO_PATH_MAP[value as LanguageCode];
-		window.location.href = path;
+		const language = LANGUAGES.find(({code}) => code === value);
+		if (language) window.location.assign(language.path);
 	};
 
 	const currentLanguage = LANGUAGES.find((l) => l.code === lang);

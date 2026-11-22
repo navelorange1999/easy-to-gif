@@ -84,7 +84,22 @@ pnpm build
 
 ## 📦 Deployment
 
-### Using Cloudflare Pages with Deploy Hooks
+### Shared demo gateway
+
+The `release.yml` workflow builds this project on pull requests to `master`.
+Pushes to `master` publish the artifact through the protected `release`
+environment. The public routes are `/easy2gif/`, `/easy2gif/zh/` and
+`/easy2gif/ja/`. The gateway provides the shared header, footer, and
+cross-origin isolation headers. The FFmpeg worker is versioned with the
+build and loads the core and WebAssembly from their pinned CDN URLs.
+
+To build the gateway artifact locally:
+
+```bash
+DEMO_SLUG=easy2gif DEMO_RELEASE="$(git rev-parse HEAD)" bash scripts/build-demo.sh
+```
+
+### Legacy Cloudflare Pages deployment
 
 1. **Fork this repository** to your GitHub account
 
