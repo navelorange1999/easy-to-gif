@@ -12,6 +12,7 @@ export interface Props {
 }
 
 const { lang } = Astro.props;
+const isDemo = Boolean(import.meta.env.ASSETS_PREFIX);
 const t = useTranslations(lang);
 const title: string = `Easy to GIF | ${t('app.description')}`;
 const description: string = t('app.description');
@@ -34,7 +35,7 @@ const description: string = t('app.description');
 
             <div class="self-center md:self-start md:pt-2">
               <div class="site-shell-toolbar flex flex-wrap items-center justify-center gap-3 rounded-full px-3 py-2 backdrop-blur">
-                <ThemeToggle client:only="react" />
+                {!isDemo && <ThemeToggle client:only="react" />}
                 <LanguageSwitcher client:only="react" lang={lang} />
               </div>
             </div>
@@ -58,37 +59,37 @@ const description: string = t('app.description');
     background:
       radial-gradient(
         circle at top right,
-        color-mix(in oklch, var(--site-shell-accent) 65%, transparent) 0%,
+        color-mix(in oklch, var(--site-shell-accent, var(--accent)) 65%, transparent) 0%,
         transparent 32rem
       ),
       linear-gradient(
         180deg,
-        color-mix(in oklch, var(--site-shell-background) 88%, white) 0%,
-        var(--site-shell-background) 100%
+        color-mix(in oklch, var(--site-shell-background, var(--background)) 88%, white) 0%,
+        var(--site-shell-background, var(--background)) 100%
       );
-    color: var(--site-shell-foreground);
+    color: var(--site-shell-foreground, var(--foreground));
   }
 
   .site-shell-hero {
-    border: 1px solid color-mix(in oklch, var(--site-shell-border) 88%, transparent);
-    border-radius: calc(var(--site-shell-radius) * 2);
-    background: color-mix(in oklch, var(--site-shell-card) 86%, transparent);
-    box-shadow: var(--site-shell-shadow);
+    border: 1px solid color-mix(in oklch, var(--site-shell-border, var(--border)) 88%, transparent);
+    border-radius: calc(var(--site-shell-radius, var(--radius)) * 2);
+    background: color-mix(in oklch, var(--site-shell-card, var(--card)) 86%, transparent);
+    box-shadow: var(--site-shell-shadow, var(--shadow));
     padding: clamp(1.25rem, 2vw, 1.75rem);
     backdrop-filter: blur(10px);
   }
 
   .site-shell-toolbar {
-    border: 1px solid var(--site-shell-border);
-    background: color-mix(in oklch, var(--site-shell-card) 88%, transparent);
-    box-shadow: var(--site-shell-shadow);
+    border: 1px solid var(--site-shell-border, var(--border));
+    background: color-mix(in oklch, var(--site-shell-card, var(--card)) 88%, transparent);
+    box-shadow: var(--site-shell-shadow, var(--shadow));
   }
 
   .site-shell-section-title {
-    color: var(--site-shell-foreground);
+    color: var(--site-shell-foreground, var(--foreground));
   }
 
   .site-shell-section-subtitle {
-    color: var(--site-shell-muted-foreground);
+    color: var(--site-shell-muted-foreground, var(--muted-foreground));
   }
 </style>

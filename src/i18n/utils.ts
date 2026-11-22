@@ -11,7 +11,11 @@ export const languages = {
 export const defaultLang = "en";
 
 export function getLangFromUrl(url: URL) {
-	const [, lang] = url.pathname.split("/");
+	const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+	const path = url.pathname.startsWith(base + "/")
+		? url.pathname.slice(base.length)
+		: url.pathname;
+	const [, lang] = path.split("/");
 	if (lang in languages) return lang as keyof typeof languages;
 	return defaultLang;
 }

@@ -1,0 +1,22 @@
+---
+import themeStyles from './legacy-theme.css?raw';
+---
+
+<style is:inline set:html={themeStyles}></style>
+<meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp" />
+<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin" />
+
+<!-- Google AdSense -->
+<script
+  is:inline
+  async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4138695723004114"
+  crossorigin="anonymous"
+></script>
+
+<script>
+  const theme = localStorage.getItem('theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.classList.toggle('dark', theme === 'dark');
+  import '@chankay/site-shell/register';
+</script>
