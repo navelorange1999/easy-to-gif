@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   demo:
-    uses: navelorange1999/chankay-demo-template/.github/workflows/release.yml@683bfe7bb5f5939ff600529957d74038daf96d8f
+    uses: navelorange1999/chankay-demo-template/.github/workflows/release.yml@9f7f514ae0dfbfee82c5ba061ae350033a74a665
     with:
       slug: easy2gif
     secrets:
