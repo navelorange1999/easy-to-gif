@@ -2,7 +2,6 @@
 
 A free, privacy-focused online video to GIF converter built with Astro, React and FFmpeg WASM. Convert videos to high-quality GIFs directly in your browser with zero server dependencies.
 
-[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://dash.cloudflare.com/pages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Astro](https://img.shields.io/badge/Astro-5-orange.svg)](https://astro.build/)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
@@ -10,7 +9,7 @@ A free, privacy-focused online video to GIF converter built with Astro, React an
 
 ## 🚀 Quick Start
 
-1. **Try it online**: Visit the live demo at [https://easy2gif.chankay.com](https://easy2gif.chankay.com)
+1. **Try it online**: Open the [live demo](https://demos.chankay.com/easy2gif/)
 2. **Choose language**: Select your preferred language (English, 中文, 日本語)
 3. **Upload a video**: Drag and drop or click to select your video file
 4. **Adjust settings**: Configure frame rate, resolution, and quality
@@ -41,15 +40,15 @@ A free, privacy-focused online video to GIF converter built with Astro, React an
 - **Internationalization**: i18next + react-i18next
 - **Theme Management**: next-themes
 - **State Management**: React Context API
-- **Deployment**: Cloudflare Pages
+- **Deployment**: Cloudflare R2 and the shared demo gateway
 - **CI/CD**: GitHub Actions
 
 ## 🛠️ Development
 
 ### Prerequisites
 
-- Node.js 18+
-- pnpm (recommended) or npm
+- Node.js 22 (the CI version)
+- Corepack
 
 ### Environment Setup
 
@@ -58,7 +57,7 @@ A free, privacy-focused online video to GIF converter built with Astro, React an
 ```bash
 git clone https://github.com/navelorange1999/easy-to-gif.git
 cd easy-to-gif
-pnpm install
+corepack pnpm@10.7.1 install --frozen-lockfile
 ```
 
 2. **Configure environment variables** (optional):
@@ -71,7 +70,7 @@ echo "PUBLIC_GITHUB_OWNER=your-username" > .env.local
 ### Development Server
 
 ```bash
-pnpm dev
+corepack pnpm@10.7.1 dev
 ```
 
 Visit http://localhost:4321 to view the application.
@@ -79,7 +78,7 @@ Visit http://localhost:4321 to view the application.
 ### Build for Production
 
 ```bash
-pnpm build
+corepack pnpm@10.7.1 build
 ```
 
 ## 📦 Deployment
@@ -99,47 +98,7 @@ To build the gateway artifact locally:
 DEMO_SLUG=easy2gif DEMO_RELEASE="$(git rev-parse HEAD)" bash scripts/build-demo.sh
 ```
 
-### Legacy Cloudflare Pages deployment
-
-1. **Fork this repository** to your GitHub account
-
-2. **Create Cloudflare Pages Project**:
-    - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/pages)
-    - Create a new Pages project
-    - Connect your GitHub repository
-
-3. **Configure Deploy Hook**:
-    - In your Pages project settings, go to **Settings** > **Builds**
-    - Click **Add deploy hook**
-    - Name: `github-release-deploy`
-    - Branch: `main`
-    - Copy the generated Deploy Hook URL
-
-4. **Configure GitHub Secrets**:
-    - Add the following secret in your GitHub repository settings:
-        - `CLOUDFLARE_DEPLOY_HOOK_URL`: Your Deploy Hook URL
-
-5. **Automatic Deployment**:
-    - Create a GitHub Release to trigger deployment
-    - GitHub Actions will automatically trigger Cloudflare Pages build
-
-6. **Environment Variables** (optional):
-    - In Cloudflare Pages settings, add environment variables:
-        - `PUBLIC_GITHUB_OWNER`: Your GitHub username
-    - Update `public/sitemap.xml` and `public/robots.txt` with your domain
-
-### Manual Deployment
-
-```bash
-# Build the project
-pnpm build
-
-# Preview the production build
-pnpm preview
-
-# Deploy to Cloudflare Pages using Wrangler
-npx wrangler pages deploy dist --project-name=easy-to-gif
-```
+The local build writes the gateway artifact to `dist/`.
 
 ## 🎯 Usage
 
@@ -170,7 +129,7 @@ npx wrangler pages deploy dist --project-name=easy-to-gif
 
 The project supports the following environment variables:
 
-- `PUBLIC_GITHUB_OWNER`: GitHub username for the repository link (default: `navelorange1999`)
+- `PUBLIC_GITHUB_OWNER`: GitHub username for the repository link in the local shell (default: `navelorange1999`)
 
 ### Language Configuration
 
@@ -190,8 +149,6 @@ Languages are configured in `src/i18n/constants.ts` and use i18next for internat
 - **Video Processing**: FFmpeg WASM for client-side conversion
 - **Internationalization**: i18next with automatic language detection
 - **Theme Management**: next-themes with persistent preferences
-- **Deployment**: Cloudflare Pages with Deploy Hooks
-- **CI/CD**: GitHub Actions triggered by releases
 
 ### Technical Requirements
 
@@ -206,7 +163,6 @@ Languages are configured in `src/i18n/constants.ts` and use i18next for internat
 src/
 ├── components/          # Components
 │   ├── astro/          # Astro components (static)
-│   │   ├── Header.astro       # Navigation header
 │   │   ├── Footer.astro       # Footer component
 │   │   ├── Features.astro     # Features section
 │   │   └── Page.astro         # Page layout wrapper
@@ -300,7 +256,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [i18next](https://www.i18next.com/) - Internationalization framework
 - [next-themes](https://github.com/pacocoursey/next-themes) - Theme management for React
 - [Vite](https://vitejs.dev/) - Next generation frontend tooling
-- [Cloudflare Pages](https://pages.cloudflare.com/) - Free static site hosting
 
 ## 📞 Support
 
