@@ -8,6 +8,3 @@ fi
 
 corepack pnpm@10.7.1 install --frozen-lockfile
 corepack pnpm@10.7.1 run build
-
-# These directives belong to the legacy Cloudflare Pages deployment.
-rm -f dist/_headers dist/_redirects
