@@ -163,7 +163,6 @@ Languages are configured in `src/i18n/constants.ts` and use i18next for internat
 src/
 ├── components/          # Components
 │   ├── astro/          # Astro components (static)
-│   │   ├── Header.astro       # Navigation header
 │   │   ├── Footer.astro       # Footer component
 │   │   ├── Features.astro     # Features section
 │   │   └── Page.astro         # Page layout wrapper
